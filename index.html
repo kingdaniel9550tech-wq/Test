@@ -1,717 +1,639 @@
-```html
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KING 👑 | Exclusive Social Club</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons for Social Media Logos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts for Luxury Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        cinzel: ['Cinzel', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        gold: {
-                            50: '#fbf8eb',
-                            100: '#f4ebb9',
-                            200: '#edd880',
-                            300: '#e3be47',
-                            400: '#d9a11f',
-                            500: '#c58416',
-                            600: '#a66411',
-                            700: '#824510',
-                            800: '#673411',
-                            900: '#542811',
-                            950: '#301305',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom animations & Scrollbars */
-        .gold-glow {
-            box-shadow: 0 0 15px rgba(217, 161, 31, 0.3);
-        }
-        .gold-glow-hover:hover {
-            box-shadow: 0 0 25px rgba(217, 161, 31, 0.6);
-        }
-        .glass {
-            background: rgba(17, 17, 19, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        /* Custom styled scrollbars */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f0f11;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #d9a11f;
-            border-radius: 3px;
-        }
-        /* Smooth fade transition */
-        .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .shake {
-            animation: shake 0.4s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KING👑 | Secured Control & Media Portal</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top right, #141414 0%, #080808 100%);
+    }
+    .font-royal { font-family: 'Cinzel', serif; }
+    .text-gold {
+      background: linear-gradient(135deg, #f5b041 0%, #f4d03f 50%, #f5b041 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .bg-gold { background: linear-gradient(135deg, #f5b041 0%, #f4d03f 100%); }
+    .glass-panel {
+      background: rgba(18, 18, 18, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(245, 176, 65, 0.12);
+    }
+    .glass-input {
+      background: rgba(5, 5, 5, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-input:focus {
+      border-color: #f5b041;
+      box-shadow: 0 0 10px rgba(245, 176, 65, 0.15);
+    }
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.05); }
+    }
+    .glow-sphere { animation: pulse-slow 8s ease-in-out infinite; }
+  </style>
 </head>
-<body class="bg-[#0b0b0d] text-zinc-100 font-sans min-h-full flex flex-col selection:bg-gold-500 selection:text-black">
+<body class="text-gray-200 min-h-screen relative overflow-x-hidden pb-12">
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+  <!-- BACKGROUND GLOWS -->
+  <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[140px] pointer-events-none glow-sphere"></div>
+  <div class="absolute bottom-10 left-10 w-96 h-96 bg-yellow-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-    <!-- ================= PASSWORD WALL ================= -->
-    <div id="password-screen" class="fixed inset-0 z-40 flex items-center justify-center bg-gradient-to-tr from-[#0b0b0d] via-[#141418] to-[#251b08] p-4 transition-all duration-500">
-        <div class="w-full max-w-md glass border border-gold-500/20 rounded-3xl p-8 text-center gold-glow relative overflow-hidden">
-            <!-- Decorative Light Flare -->
-            <div class="absolute -top-12 -left-12 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl"></div>
-            
-            <div class="mb-6">
-                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-b from-gold-300 to-gold-600 p-[1px] mb-4 shadow-lg shadow-gold-500/10">
-                    <div class="w-full h-full bg-[#121214] rounded-full flex items-center justify-center">
-                        <span class="text-4xl">👑</span>
-                    </div>
-                </div>
-                <h1 class="font-cinzel text-3xl font-extrabold tracking-wider bg-gradient-to-r from-gold-200 via-gold-400 to-gold-200 bg-clip-text text-transparent">
-                    KING PORTAL
-                </h1>
-                <p class="text-zinc-400 text-sm mt-2">Enter the passkey to access exclusive content & streams</p>
-            </div>
-
-            <form id="login-form" class="space-y-4">
-                <div class="relative">
-                    <input type="password" id="password-input" placeholder="Enter Access Code" 
-                           class="w-full bg-[#16161a] border border-zinc-800 focus:border-gold-500 text-center text-lg tracking-widest text-gold-200 rounded-xl px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-zinc-600 placeholder:tracking-normal focus:gold-glow">
-                </div>
-                
-                <button type="submit" class="w-full bg-gradient-to-r from-gold-600 to-gold-400 hover:from-gold-500 hover:to-gold-300 text-black font-semibold py-3.5 px-6 rounded-xl transition-all duration-300 transform active:scale-[0.98] gold-glow-hover flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-unlock-keyhole"></i> Unlock Realm
-                </button>
-            </form>
-
-            <div class="mt-8 border-t border-zinc-900 pt-5 text-xs text-zinc-500">
-                <p>Protected Gate. Only Authorized Members allowed.</p>
-                <p class="mt-2 text-gold-500/50">Demo Access Code: <span class="font-bold border-b border-gold-500/30">KING123</span></p>
-            </div>
+  <!-- 1. MULTI-LEVEL GATEWAY (PASSWORD SHIELD) -->
+  <div id="gatekeeperOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/98 px-4 transition-all duration-500">
+    <div class="max-w-md w-full glass-panel rounded-2xl p-8 text-center shadow-2xl border-t-4 border-t-amber-500 relative">
+      
+      <div class="mb-6">
+        <div class="w-20 h-20 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-3 border border-amber-500/20">
+          <span class="text-4xl">👑</span>
         </div>
-    </div>
+        <h1 class="text-3xl font-royal font-bold text-gold tracking-widest">KING</h1>
+        <p class="text-3xs text-amber-500/70 uppercase tracking-widest mt-1">Multi-Tier Cryptographic Access</p>
+      </div>
 
-    <!-- ================= MAIN PLATFORM CONTENT ================= -->
-    <div id="main-content" class="hidden min-h-screen flex flex-col">
-        <!-- Header / Navigation Bar -->
-        <header class="sticky top-0 z-30 glass border-b border-zinc-900 px-4 py-4 md:px-8">
-            <div class="max-w-6xl mx-auto flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <span class="text-3xl md:text-4xl filter drop-shadow-[0_2px_8px_rgba(217,161,31,0.4)]">👑</span>
-                    <div>
-                        <h1 class="font-cinzel text-xl md:text-2xl font-black tracking-widest bg-gradient-to-r from-gold-200 via-gold-400 to-gold-100 bg-clip-text text-transparent">
-                            KING
-                        </h1>
-                        <span class="text-[9px] uppercase tracking-widest text-gold-400 font-semibold block -mt-1">V.I.P CLUBHOUSE</span>
-                    </div>
-                </div>
+      <!-- Credentials Guidance Toggle Box -->
+      <div class="mb-5 p-3 bg-zinc-900/90 rounded-xl border border-zinc-800 text-left text-xs space-y-1 text-gray-400">
+        <p class="font-semibold text-amber-500 flex items-center gap-1"><i class="fas fa-info-circle"></i> Gatekeeper Passcodes:</p>
+        <p>• Admin Pass: <span class="text-white font-mono select-all">KING_ADMIN</span> <span class="text-2xs text-zinc-500">(Full Uploads & Controls)</span></p>
+        <p>• User Pass: <span class="text-white font-mono select-all">KING_USER</span> <span class="text-2xs text-zinc-500">(Read-Only Secure View)</span></p>
+      </div>
 
-                <div class="flex items-center gap-3">
-                    <button onclick="handleLogout()" class="text-xs bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-gold-500/40 text-zinc-300 hover:text-gold-400 px-4 py-2 rounded-xl transition-all duration-300 flex items-center gap-2">
-                        <i class="fa-solid fa-sign-out-alt"></i> Lock Gate
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Body Grid -->
-        <main class="flex-grow max-w-3xl w-full mx-auto px-4 py-6 md:py-10 space-y-8">
-            
-            <!-- SECTION 1: EXCLUSIVE POST CREATOR -->
-            <section class="glass border border-gold-500/20 rounded-2xl p-5 md:p-6 gold-glow transition-all duration-300">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-full bg-gold-950 flex items-center justify-center border border-gold-500/30">
-                        <span class="text-xl">✍️</span>
-                    </div>
-                    <div>
-                        <h2 class="font-semibold text-lg text-gold-300">Share with the Elite</h2>
-                        <p class="text-xs text-zinc-500">Post texts, high-res photos, or premium videos</p>
-                    </div>
-                </div>
-
-                <!-- Input area -->
-                <textarea id="post-text-input" placeholder="What's happening in the realm today, King?" 
-                          class="w-full bg-[#111114] border border-zinc-800 focus:border-gold-500/60 rounded-xl p-4 min-h-[100px] text-zinc-200 outline-none transition-all duration-300 placeholder:text-zinc-600 focus:ring-1 focus:ring-gold-500/30 resize-none"></textarea>
-
-                <!-- Dynamic Upload Preview Box -->
-                <div id="media-preview-container" class="hidden mt-4 relative bg-[#121215] rounded-xl p-3 border border-zinc-800">
-                    <!-- Dynamic preview rendered here by JS -->
-                </div>
-
-                <!-- Control Bar -->
-                <div class="flex flex-wrap items-center justify-between gap-3 mt-4 pt-4 border-t border-zinc-900">
-                    <div class="flex items-center gap-2">
-                        <!-- Image Upload Trigger -->
-                        <label class="cursor-pointer bg-zinc-900/80 hover:bg-gold-500/10 border border-zinc-800 hover:border-gold-500/30 px-3.5 py-2 rounded-xl transition-all duration-300 flex items-center gap-2 text-xs text-zinc-300 hover:text-gold-400">
-                            <i class="fa-regular fa-image text-gold-400"></i>
-                            <span>Add Photo</span>
-                            <input type="file" id="image-file-input" accept="image/*" class="hidden" onchange="previewMedia('image')">
-                        </label>
-
-                        <!-- Video Upload Trigger -->
-                        <label class="cursor-pointer bg-zinc-900/80 hover:bg-gold-500/10 border border-zinc-800 hover:border-gold-500/30 px-3.5 py-2 rounded-xl transition-all duration-300 flex items-center gap-2 text-xs text-zinc-300 hover:text-gold-400">
-                            <i class="fa-regular fa-circle-play text-gold-400"></i>
-                            <span>Add Video</span>
-                            <input type="file" id="video-file-input" accept="video/*" class="hidden" onchange="previewMedia('video')">
-                        </label>
-                    </div>
-
-                    <button onclick="handlePublishPost()" class="bg-gradient-to-r from-gold-500 to-gold-400 hover:from-gold-400 hover:to-gold-300 text-black font-bold px-6 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 text-xs md:text-sm shadow-md shadow-gold-500/10 hover:shadow-gold-500/20 active:scale-[0.98]">
-                        Publish Entry <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </div>
-            </section>
-
-            <!-- SECTION 2: THE FEEDS -->
-            <section class="space-y-6">
-                <div class="flex items-center justify-between border-b border-zinc-900 pb-3">
-                    <h3 class="font-cinzel text-lg tracking-wider text-gold-300 flex items-center gap-2">
-                        <span class="inline-block w-2.5 h-2.5 rounded-full bg-gold-400 animate-pulse"></span>
-                        EXCLUSIVE CHRONICLES
-                    </h3>
-                    <span id="post-count-badge" class="text-xs bg-zinc-900 text-gold-400 px-3 py-1 rounded-full border border-zinc-800">
-                        0 Posts
-                    </span>
-                </div>
-
-                <div id="empty-feed-state" class="hidden text-center py-16 px-4 glass rounded-2xl border border-zinc-900">
-                    <span class="text-5xl block mb-3">🤫</span>
-                    <h4 class="text-zinc-300 font-semibold text-lg">The Realm is Quiet</h4>
-                    <p class="text-xs text-zinc-500 mt-1 max-w-xs mx-auto">Be the first to post exclusive insights, high-grade imagery or custom video feeds.</p>
-                </div>
-
-                <!-- Feed Container -->
-                <div id="feed-container" class="space-y-6">
-                    <!-- Dynamic posts injected here -->
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="mt-auto border-t border-zinc-900 py-6 text-center text-xs text-zinc-600 glass">
-            <p>© 2026 KING👑 CLUBHOUSE. All Rights Reserved.</p>
-            <p class="mt-1 text-[10px] tracking-wider text-gold-500/30 uppercase font-cinzel">Curated Excellence Only</p>
-        </footer>
-
-        <!-- ================= FLOATING CALL-TO-ACTION SOCIALS DOCK ================= -->
-        <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-            
-            <!-- Social Buttons Tray (Opens up vertically) -->
-            <div id="social-tray" class="hidden flex-col items-end gap-3 transition-all duration-300 transform translate-y-4 opacity-0">
-                <!-- Telegram -->
-                <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3">
-                    <span class="bg-[#111114] border border-zinc-800 text-zinc-300 text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">Telegram Channel</span>
-                    <div class="w-12 h-12 bg-[#229ED9] text-white rounded-full flex items-center justify-center text-lg shadow-lg hover:scale-110 active:scale-95 transition-all duration-300">
-                        <i class="fa-brands fa-telegram"></i>
-                    </div>
-                </a>
-
-                <!-- WhatsApp -->
-                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3">
-                    <span class="bg-[#111114] border border-zinc-800 text-zinc-300 text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">WhatsApp Support</span>
-                    <div class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center text-lg shadow-lg hover:scale-110 active:scale-95 transition-all duration-300">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </div>
-                </a>
-
-                <!-- Instagram -->
-                <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3">
-                    <span class="bg-[#111114] border border-zinc-800 text-zinc-300 text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">Instagram Profile</span>
-                    <div class="w-12 h-12 bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white rounded-full flex items-center justify-center text-lg shadow-lg hover:scale-110 active:scale-95 transition-all duration-300">
-                        <i class="fa-brands fa-instagram"></i>
-                    </div>
-                </a>
-
-                <!-- Twitter / X -->
-                <a href="https://x.com/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3">
-                    <span class="bg-[#111114] border border-zinc-800 text-zinc-300 text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">X Platform</span>
-                    <div class="w-12 h-12 bg-black text-white border border-zinc-800 rounded-full flex items-center justify-center text-lg shadow-lg hover:scale-110 active:scale-95 transition-all duration-300">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Main Trigger FAB -->
-            <button id="fab-trigger" onclick="toggleSocialTray()" class="w-14 h-14 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-500 text-black font-extrabold rounded-full flex items-center justify-center text-2xl shadow-xl shadow-gold-500/20 hover:scale-110 active:scale-95 transition-all duration-300 outline-none relative overflow-hidden group">
-                <span class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-                <i id="fab-icon" class="fa-solid fa-crown transition-transform duration-300"></i>
-            </button>
+      <form onsubmit="verifyGateAccess(event)" class="space-y-4">
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-500/40">
+            <i class="fas fa-shield-alt"></i>
+          </span>
+          <input 
+            type="password" 
+            id="gatePasskey" 
+            placeholder="Enter Level Passkey..." 
+            class="w-full pl-10 pr-12 py-3.5 bg-black/40 border border-zinc-800 rounded-xl focus:outline-none focus:border-amber-500 text-center font-mono tracking-widest text-gray-100"
+            required
+          >
+          <button type="button" onclick="togglePasswordInput()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 hover:text-amber-400">
+            <i id="eyeIcon" class="fas fa-eye"></i>
+          </button>
         </div>
-    </div>
 
-    <!-- ================= FULLSCREEN MEDIA PREVIEW OVERLAY ================= -->
-    <div id="media-modal" class="hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
-        <button onclick="closeMediaModal()" class="absolute top-6 right-6 text-white hover:text-gold-400 text-3xl focus:outline-none transition-colors">
-            <i class="fa-solid fa-xmark"></i>
+        <div id="gateError" class="hidden text-red-400 text-xs bg-red-950/30 border border-red-900/50 py-2 px-3 rounded-lg text-left">
+          ⚠️ Access Denied. Check credentials and retry.
+        </div>
+
+        <button type="submit" class="w-full bg-gold hover:opacity-90 text-black font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2">
+          <span>Authenticate Session</span>
+          <i class="fas fa-sign-in-alt"></i>
         </button>
-        <div class="max-w-4xl max-h-[85vh] w-full flex items-center justify-center">
-            <img id="modal-img" class="hidden max-w-full max-h-[85vh] object-contain rounded-lg border border-zinc-800" src="" alt="Full preview">
-            <video id="modal-video" class="hidden max-w-full max-h-[85vh] rounded-lg border border-zinc-800" controls></video>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MAIN SYSTEM PANEL -->
+  <div id="portalDashboard" class="hidden opacity-0 transition-opacity duration-500">
+    
+    <!-- SYSTEM NAVBAR -->
+    <header class="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/80 py-4 px-4 md:px-8">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">👑</span>
+          <div>
+            <h1 class="text-xl font-royal font-black text-white tracking-wider flex items-center gap-2">
+              KING <span class="text-xs bg-amber-500/10 border border-amber-500/30 text-amber-500 px-2 py-0.5 rounded" id="roleBadge">User</span>
+            </h1>
+            <p class="text-3xs text-zinc-500 tracking-widest uppercase">Decentralized Content Hub</p>
+          </div>
         </div>
+
+        <!-- System Architecture Tabs -->
+        <div class="flex bg-black/60 rounded-xl p-1 border border-zinc-800 text-xs font-medium">
+          <button onclick="switchTab('feed')" id="tab-feed" class="px-4 py-2 rounded-lg bg-amber-500 text-black font-bold transition-all flex items-center gap-1.5">
+            <i class="fas fa-photo-video"></i> Secured Vault
+          </button>
+          <button onclick="switchTab('adminPanel')" id="tab-adminPanel" class="px-4 py-2 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5">
+            <i class="fas fa-sliders-h"></i> Control Console
+          </button>
+          <button onclick="switchTab('devDocs')" id="tab-devDocs" class="px-4 py-2 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5">
+            <i class="fas fa-code-branch"></i> Deploy Architecture
+          </button>
+        </div>
+
+        <button onclick="lockPortal()" class="text-xs text-zinc-400 hover:text-red-400 bg-zinc-900 border border-zinc-800 px-3 py-2 rounded-lg transition-all flex items-center gap-1">
+          <i class="fas fa-power-off"></i> <span class="hidden md:inline">Exit Portal</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT ROOT VIEW -->
+    <main class="max-w-7xl mx-auto px-4 mt-8">
+      
+      <!-- TAB A: CONTENT VAULT FEED -->
+      <section id="view-feed" class="space-y-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-zinc-900 pb-4">
+          <div>
+            <h2 class="text-xl font-royal font-bold text-zinc-100 flex items-center gap-2">
+              <i class="fas fa-folder-open text-amber-500 text-sm"></i> Restricted Repositories
+            </h2>
+            <p class="text-xs text-zinc-500">Decrypted media and encrypted logs fetched from active endpoints.</p>
+          </div>
+
+          <!-- Quick Actions & Dynamic Counters -->
+          <div class="flex items-center gap-3 text-xs w-full md:w-auto justify-between md:justify-end">
+            <div class="bg-zinc-900/60 border border-zinc-800 rounded-lg px-3 py-2 flex gap-4 text-zinc-400 font-mono">
+              <div>Posts: <span class="text-amber-500 font-bold" id="cnt-all">0</span></div>
+              <div>Videos: <span class="text-sky-400 font-bold" id="cnt-vid">0</span></div>
+            </div>
+            <button onclick="openPublishDrawer()" id="floatingAddAssetBtn" class="bg-gold text-black font-bold px-4 py-2 rounded-xl shadow transition-all hover:scale-105 flex items-center gap-1.5 hidden">
+              <i class="fas fa-plus-circle"></i> Add Asset
+            </button>
+          </div>
+        </div>
+
+        <!-- Grid Container for Media Cards -->
+        <div id="vaultGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Populated dynamically via JS engine -->
+        </div>
+
+        <!-- Empty Vault Placeholder -->
+        <div id="vaultEmptyState" class="hidden text-center py-20 glass-panel rounded-2xl border border-dashed border-zinc-800">
+          <div class="text-5xl mb-4">🗄️</div>
+          <h4 class="text-base font-bold text-zinc-300">Vault Repository is Empty</h4>
+          <p class="text-xs text-zinc-500 mt-1 max-w-sm mx-auto">Authenticate with an Admin Passkey to publish text notifications, high-res images, and video feeds.</p>
+        </div>
+      </section>
+
+      <!-- TAB B: CONTROL PANELS / ADMIN LEVEL CONTROLS -->
+      <section id="view-adminPanel" class="hidden space-y-6">
+        <div class="glass-panel rounded-2xl p-6 border-l-4 border-l-purple-500">
+          <h3 class="text-lg font-royal font-bold text-white flex items-center gap-2">
+            <i class="fas fa-user-shield text-purple-400"></i> Enterprise Access Control & Settings
+          </h3>
+          <p class="text-xs text-zinc-400 mt-1">Configure systemic real-time switches, database drivers, and local cache synchronization states.</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <div class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900 space-y-2">
+              <label class="text-xs font-semibold text-zinc-400 uppercase tracking-wide block">Active Database Driver</label>
+              <select class="w-full bg-zinc-900 text-xs text-zinc-300 border border-zinc-800 rounded-lg p-2.5 focus:outline-none focus:border-amber-500">
+                <option>Supabase Driver (Real-time WebSockets)</option>
+                <option>Neon Serverless Postgres (Pool Cluster)</option>
+                <option>Gun.js Decentralized Mesh (P2P Cache)</option>
+                <option selected>LocalStorage Standalone Client (Mocking Enabled)</option>
+              </select>
+            </div>
+
+            <div class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900 space-y-2">
+              <label class="text-xs font-semibold text-zinc-400 uppercase tracking-wide block">Privacy Visibility</label>
+              <div class="flex items-center justify-between pt-1">
+                <span class="text-xs text-zinc-300">Enforce Password Encryption</span>
+                <input type="checkbox" checked class="w-4 h-4 accent-amber-500">
+              </div>
+            </div>
+
+            <div class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900 space-y-2">
+              <label class="text-xs font-semibold text-zinc-400 uppercase tracking-wide block">System Purge</label>
+              <button onclick="resetSystemData()" class="w-full bg-red-950/40 border border-red-900/60 text-red-400 hover:bg-red-900/40 text-xs py-2 rounded-lg transition-all font-semibold">
+                Wipe Local Database Cache
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated Direct Posting Form Inside Controller Interface -->
+        <div id="adminFormSection" class="glass-panel rounded-2xl p-6 opacity-40 pointer-events-none transition-all duration-300">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="text-sm font-royal font-bold text-amber-500">Add Content to Secure Vault (Admin Only)</h4>
+            <span class="text-3xs bg-red-500/10 border border-red-500/20 text-red-400 px-2 py-0.5 rounded uppercase font-mono tracking-widest" id="lockNotice">Locked</span>
+          </div>
+
+          <form onsubmit="handleAssetPublish(event)" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label class="text-2xs font-bold text-zinc-400 uppercase">Asset Asset Content / Text Decree</label>
+                <textarea id="assetText" placeholder="Write description text, internal notices or code remarks..." rows="4" class="w-full glass-input rounded-xl p-3 text-sm text-white focus:outline-none resize-none" required></textarea>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <label class="text-2xs font-bold text-zinc-400 uppercase block mb-1">Asset Media Classification</label>
+                  <select id="assetType" onchange="adjustMediaInputs()" class="w-full bg-zinc-900 text-xs border border-zinc-800 rounded-lg p-2.5 focus:outline-none focus:border-amber-500 text-white">
+                    <option value="none">Pure Text Record</option>
+                    <option value="image">Image Attachment</option>
+                    <option value="video">Video Attachment</option>
+                  </select>
+                </div>
+
+                <!-- Dynamic Media Source URL Field -->
+                <div id="assetUrlField" class="hidden">
+                  <label class="text-2xs font-bold text-zinc-400 uppercase block mb-1">Media Source URL</label>
+                  <input type="text" id="assetMediaUrl" placeholder="Paste full HTTP file address or YouTube URL..." class="w-full glass-input rounded-lg p-2.5 text-xs text-white focus:outline-none">
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="bg-amber-500 text-black text-xs font-bold px-6 py-3 rounded-xl transition-all hover:opacity-90 flex items-center gap-1">
+              <i class="fas fa-layer-group"></i> Commit Node to DB Pipeline
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB C: DEPLOYMENT ARCHITECTURE DOCS -->
+      <section id="view-devDocs" class="hidden space-y-6">
+        <div class="glass-panel rounded-2xl p-6 space-y-4">
+          <div class="flex items-center gap-2 border-b border-zinc-800 pb-3">
+            <i class="fas fa-project-diagram text-teal-400 text-lg"></i>
+            <div>
+              <h3 class="text-base font-royal font-bold text-white">Global Cloud Deployment Blueprint</h3>
+              <p class="text-xs text-zinc-500">Step-by-step pipeline for building secure backend infrastructure.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-gray-300">
+            <div class="space-y-3">
+              <h4 class="font-bold text-amber-400 flex items-center gap-1"><i class="fab fa-github"></i> 1. Static Vercel & GitHub Actions Setup</h4>
+              <p class="text-zinc-400 leading-relaxed">
+                Commit this static system layout code directly to a secure private GitHub repository. Connect the repository branch to <strong>Vercel</strong> or <strong>GitHub Pages</strong> for high-availability frontend content delivery networks (CDNs).
+              </p>
+              <div class="bg-black/80 font-mono p-3 rounded-lg border border-zinc-900 overflow-x-auto text-2xs text-teal-400">
+                git init<br>git add index.html<br>git commit -m "feat: king core structure initialized"
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <h4 class="font-bold text-amber-400 flex items-center gap-1"><i class="fas fa-database"></i> 2. Full-Stack Supabase / Neon Architecture Integration</h4>
+              <p class="text-zinc-400 leading-relaxed">
+                Replace the mock operations inside the initialization script with a live instance connection string. Hook up Row Level Security (RLS) policies within Supabase or Neon PostgreSQL to safely restrict tables based on client authorizations.
+              </p>
+              <div class="bg-black/80 font-mono p-3 rounded-lg border border-zinc-900 text-2xs text-zinc-500">
+                SELECT enable_row_level_security('vault_assets');<br>
+                CREATE POLICY admin_isolation ON vault_assets FOR ALL TO admin_role;
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FLOATING FLOATED QUICK CONTACT HUB (WHATSAPP, TELEGRAM, DISCORD) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col-reverse items-end gap-3">
+      
+      <!-- Primary Core Toggle Anchor -->
+      <button 
+        onclick="toggleSocialSuiteMenu()" 
+        id="socialCentralToggle"
+        class="w-14 h-14 bg-gold text-black rounded-full shadow-[0_4px_25px_rgba(245,176,65,0.4)] flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition-all relative z-50 focus:outline-none"
+      >
+        <span class="absolute top-0 right-0 w-3 h-3 bg-red-500 border-2 border-black rounded-full"></span>
+        <i class="fas fa-crown transition-transform duration-300" id="centralHubIcon"></i>
+      </button>
+
+      <!-- Sub-Action Vertical Navigation Items -->
+      <div 
+        id="socialSuiteSubMenu" 
+        class="flex flex-col gap-3 items-end transition-all duration-300 transform scale-0 translate-y-10 opacity-0 pointer-events-none"
+      >
+        <!-- Telegram Channel Hook -->
+        <a href="https://t.me/yourusername" target="_blank" rel="noreferrer" class="flex items-center gap-2 group">
+          <span class="bg-zinc-950 text-2xs text-sky-400 font-bold py-1 px-2.5 rounded-lg border border-sky-500/20 transform scale-0 group-hover:scale-100 transition-transform origin-right">
+            Telegram Link
+          </span>
+          <div class="w-12 h-12 bg-sky-500 text-white rounded-full flex items-center justify-center text-lg hover:scale-110 shadow-lg shadow-sky-500/20 transition-all">
+            <i class="fab fa-telegram-plane"></i>
+          </div>
+        </a>
+
+        <!-- WhatsApp Direct API Integration Hook -->
+        <a href="https://wa.me/2340000000000?text=Hello%20KING%20TEAM!%20System%20Access%20Request." target="_blank" rel="noreferrer" class="flex items-center gap-2 group">
+          <span class="bg-zinc-950 text-2xs text-emerald-400 font-bold py-1 px-2.5 rounded-lg border border-emerald-500/20 transform scale-0 group-hover:scale-100 transition-transform origin-right">
+            WhatsApp Contact
+          </span>
+          <div class="w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center text-lg hover:scale-110 shadow-lg shadow-emerald-500/20 transition-all">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+        </a>
+
+        <!-- Discord Guild Hook -->
+        <a href="https://discord.gg/yourinvite" target="_blank" rel="noreferrer" class="flex items-center gap-2 group">
+          <span class="bg-zinc-950 text-2xs text-indigo-400 font-bold py-1 px-2.5 rounded-lg border border-indigo-500/20 transform scale-0 group-hover:scale-100 transition-transform origin-right">
+            Discord Channel
+          </span>
+          <div class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-md hover:scale-110 shadow-lg shadow-indigo-600/20 transition-all">
+            <i class="fab fa-discord"></i>
+          </div>
+        </a>
+      </div>
     </div>
 
+    <!-- MAIN APP FOOTER MARK -->
+    <footer class="mt-20 py-6 border-t border-zinc-900/80 text-center text-3xs text-zinc-600 font-mono tracking-widest uppercase">
+      MADE WITH LOVE BY KING TEAM
+    </footer>
 
-    <!-- ================= APPLICATION CODE ================= -->
-    <script>
-        // Set the secret access key (Passcode)
-        const PORTAL_PASSCODE = "KING123";
+  </div>
 
-        // Global state objects
-        let isTrayOpen = false;
-        let selectedMediaType = null; // 'image' or 'video'
-        let selectedMediaBase64 = null; // Storing temporary media data in memory
+  <!-- CONTROL SCRIPT LOGIC ENGINE -->
+  <script>
+    // Access Passkey Controls
+    const SECURE_CREDENTIALS = {
+      "KING_ADMIN": "admin",
+      "KING_USER": "user"
+    };
 
-        // Premium Mock Data
-        let appPosts = [
-            {
-                id: "mock-1",
-                author: "Admin 👑",
-                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop",
-                timestamp: "2 hours ago",
-                text: "Welcome to KING. Here, you get direct access to premium lifestyle footage, private market insights, and real-time updates from our elite networks. Dive deep and secure the bag.",
-                mediaType: "image",
-                mediaUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop",
-                likes: 42,
-                hasLiked: false,
-                comments: [
-                    { user: "Lord Sterling", text: "This design layout is absolutely incredible!" },
-                    { user: "Duchess Sarah", text: "Excited for the upcoming premium drops." }
-                ]
-            },
-            {
-                id: "mock-2",
-                author: "V.I.P Hub 🦁",
-                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop",
-                timestamp: "4 hours ago",
-                text: "Keep your visions high and your operations silent. Consistency makes legends.",
-                mediaType: "image",
-                mediaUrl: "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1000&auto=format&fit=crop",
-                likes: 89,
-                hasLiked: true,
-                comments: []
-            }
-        ];
+    let currentUserRole = null;
+    let activeViewTab = 'feed';
 
-        // 1. Initial State Checks
-        window.addEventListener('DOMContentLoaded', () => {
-            const hasAccess = sessionStorage.getItem('king_portal_access');
-            if (hasAccess === 'granted') {
-                showDashboard();
-            } else {
-                showPasswordWall();
-            }
-        });
+    // Base Seed Mock Storage Setup
+    const CORE_VAULT_FALLBACK = [
+      {
+        id: "node-1",
+        text: "System broadcast status confirmation. Multi-level isolation policies activated successfully across standard data arrays.",
+        mediaType: "none",
+        mediaUrl: "",
+        timestamp: "Active Node"
+      },
+      {
+        id: "node-2",
+        text: "Visual configuration reference asset. Admin authenticated access verified.",
+        mediaType: "image",
+        mediaUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
+        timestamp: "5 hours ago"
+      },
+      {
+        id: "node-3",
+        text: "Cinematic real-time video streaming stream check.",
+        mediaType: "video",
+        mediaUrl: "https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-42152-large.mp4",
+        timestamp: "1 day ago"
+      }
+    ];
 
-        // 2. Custom Toast Notification Manager (Eliminates Browser Alerts)
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            
-            // Set styles based on toast type
-            const bgClass = type === 'success' ? 'border-gold-500/30' : 'border-rose-500/30';
-            const textClass = type === 'success' ? 'text-gold-200' : 'text-rose-200';
-            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check text-gold-400"></i>' : '<i class="fa-solid fa-circle-exclamation text-rose-400"></i>';
+    let vaultAssets = JSON.parse(localStorage.getItem('king_vault_assets')) || CORE_VAULT_FALLBACK;
 
-            toast.className = `flex items-center gap-3 bg-[#111114] border ${bgClass} ${textClass} px-4 py-3 rounded-xl shadow-2xl transition-all duration-300 opacity-0 transform translate-y-3 pointer-events-auto min-w-[280px]`;
-            toast.innerHTML = `
-                <div class="text-lg">${icon}</div>
-                <div class="text-xs font-semibold flex-grow">${message}</div>
-                <button onclick="this.parentElement.remove()" class="text-zinc-500 hover:text-zinc-300 text-sm focus:outline-none">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+    // Check existing runtime session
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedAuth = sessionStorage.getItem('king_session_role');
+      if (savedAuth) {
+        initializeAuthorizedSession(savedAuth);
+      }
+    });
+
+    function togglePasswordInput() {
+      const field = document.getElementById('gatePasskey');
+      const icon = document.getElementById('eyeIcon');
+      if (field.type === "password") {
+        field.type = "text";
+        icon.className = "fas fa-eye-slash";
+      } else {
+        field.type = "password";
+        icon.className = "fas fa-eye";
+      }
+    }
+
+    // Process Gate Verification
+    function verifyGateAccess(e) {
+      e.preventDefault();
+      const enteredKey = document.getElementById('gatePasskey').value.trim();
+      const errorDiv = document.getElementById('gateError');
+
+      if (SECURE_CREDENTIALS[enteredKey]) {
+        errorDiv.classList.add('hidden');
+        const assignedRole = SECURE_CREDENTIALS[enteredKey];
+        sessionStorage.setItem('king_session_role', assignedRole);
+        initializeAuthorizedSession(assignedRole);
+      } else {
+        errorDiv.classList.remove('hidden');
+        document.getElementById('gatePasskey').value = '';
+      }
+    }
+
+    // Setup active window settings based on privileges
+    function initializeAuthorizedSession(role) {
+      currentUserRole = role;
+      
+      // Animate overlay dismissal
+      const overlay = document.getElementById('gatekeeperOverlay');
+      const dashboard = document.getElementById('portalDashboard');
+      
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+        setTimeout(() => dashboard.classList.remove('opacity-0'), 50);
+        
+        // Dynamic Role Rendering Adjustments
+        const badge = document.getElementById('roleBadge');
+        const adminSection = document.getElementById('adminFormSection');
+        const lockNotice = document.getElementById('lockNotice');
+        const quickAddBtn = document.getElementById('floatingAddAssetBtn');
+
+        if (role === 'admin') {
+          badge.innerText = "Master Admin";
+          badge.className = "text-xs bg-purple-500/10 border border-purple-500/30 text-purple-400 px-2 py-0.5 rounded";
+          if(adminSection) {
+            adminSection.classList.remove('opacity-40', 'pointer-events-none');
+            lockNotice.innerText = "Active Link";
+            lockNotice.className = "text-3xs bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded uppercase font-mono tracking-widest";
+          }
+          if(quickAddBtn) quickAddBtn.classList.remove('hidden');
+        } else {
+          badge.innerText = "Standard User";
+          badge.className = "text-xs bg-zinc-800 border border-zinc-700 text-zinc-400 px-2 py-0.5 rounded";
+        }
+
+        renderVaultData();
+      }, 400);
+    }
+
+    function lockPortal() {
+      sessionStorage.removeItem('king_session_role');
+      window.location.reload();
+    }
+
+    // Render Database Pipeline Content
+    function renderVaultData() {
+      const grid = document.getElementById('vaultGrid');
+      const emptyState = document.getElementById('vaultEmptyState');
+      
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      if (vaultAssets.length === 0) {
+        emptyState.classList.remove('hidden');
+        updateCounters();
+        return;
+      }
+      emptyState.classList.add('hidden');
+
+      vaultAssets.forEach(asset => {
+        let mediaSegment = '';
+        
+        if (asset.mediaType === 'image') {
+          mediaSegment = `
+            <div class="mt-3 rounded-lg overflow-hidden border border-zinc-900 bg-black/40">
+              <img src="${asset.mediaUrl}" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/600x400/111/f5b041?text=Media+Broker+Error';">
+            </div>
+          `;
+        } else if (asset.mediaType === 'video') {
+          const isYoutube = asset.mediaUrl.includes('youtube.com') || asset.mediaUrl.includes('youtu.be');
+          if (isYoutube) {
+            let embed = getYoutubeEmbedHash(asset.mediaUrl);
+            mediaSegment = `
+              <div class="mt-3 rounded-lg overflow-hidden border border-zinc-900 aspect-video bg-black">
+                <iframe class="w-full h-full" src="${embed}" frameborder="0" allowfullscreen></iframe>
+              </div>
             `;
-
-            container.appendChild(toast);
-
-            // Trigger animation
-            setTimeout(() => {
-                toast.classList.remove('opacity-0', 'translate-y-3');
-            }, 50);
-
-            // Auto-dismiss after 4 seconds
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-2');
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
+          } else {
+            mediaSegment = `
+              <div class="mt-3 rounded-lg overflow-hidden border border-zinc-900 bg-black/50">
+                <video src="${asset.mediaUrl}" controls class="w-full h-48 object-contain" preload="metadata"></video>
+              </div>
+            `;
+          }
         }
 
-        // 3. Password Check Logic
-        document.getElementById('login-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const input = document.getElementById('password-input');
-            const wrapper = input.parentElement.parentElement;
+        const deleteActionHtml = currentUserRole === 'admin' 
+          ? `<button onclick="purgeNode('${asset.id}')" class="text-zinc-600 hover:text-red-400 text-2xs transition-colors"><i class="far fa-trash-alt"></i> Delete</button>`
+          : ``;
 
-            if (input.value.trim() === PORTAL_PASSCODE) {
-                sessionStorage.setItem('king_portal_access', 'granted');
-                showToast("Access Granted. Welcome to the Realm.");
-                
-                // Animate transition out
-                const wall = document.getElementById('password-screen');
-                wall.classList.add('opacity-0', 'scale-95');
-                setTimeout(() => {
-                    showDashboard();
-                    wall.classList.remove('opacity-0', 'scale-95');
-                }, 400);
-            } else {
-                // Shake effect on failure
-                wrapper.classList.remove('shake');
-                void wrapper.offsetWidth; // Reflow reset
-                wrapper.classList.add('shake');
-                showToast("Invalid Access Code. Access Denied.", 'error');
-                input.value = "";
-            }
-        });
+        const card = document.createElement('div');
+        card.className = "glass-panel rounded-xl p-5 flex flex-col justify-between border border-zinc-900/60";
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-3xs font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-500 border border-zinc-800">${asset.timestamp}</span>
+              <span class="text-2xs font-semibold text-amber-500/80 uppercase font-mono">${asset.mediaType} asset</span>
+            </div>
+            <p class="text-xs text-zinc-300 leading-relaxed whitespace-pre-line">${asset.text}</p>
+            ${mediaSegment}
+          </div>
+          <div class="mt-4 pt-3 border-t border-zinc-900/60 flex justify-between items-center">
+            <span class="text-3xs font-mono text-zinc-600">ID: ${asset.id}</span>
+            ${deleteActionHtml}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
 
-        function showDashboard() {
-            document.getElementById('password-screen').classList.add('hidden');
-            document.getElementById('main-content').classList.remove('hidden');
-            renderFeed();
+      updateCounters();
+    }
+
+    function updateCounters() {
+      document.getElementById('cnt-all').innerText = vaultAssets.length;
+      document.getElementById('cnt-vid').innerText = vaultAssets.filter(a => a.mediaType === 'video').length;
+    }
+
+    function adjustMediaInputs() {
+      const type = document.getElementById('assetType').value;
+      const urlField = document.getElementById('assetUrlField');
+      if (type === 'none') {
+        urlField.classList.add('hidden');
+      } else {
+        urlField.classList.remove('hidden');
+      }
+    }
+
+    // Process Admin Content Additions
+    function handleAssetPublish(e) {
+      e.preventDefault();
+      if (currentUserRole !== 'admin') return;
+
+      const text = document.getElementById('assetText').value.trim();
+      const type = document.getElementById('assetType').value;
+      const mediaUrl = document.getElementById('assetMediaUrl').value.trim();
+
+      if (type !== 'none' && !mediaUrl) {
+        alert("Please specify a functional Media Access Target URL string.");
+        return;
+      }
+
+      const newNode = {
+        id: "node-" + Date.now(),
+        text: text,
+        mediaType: type,
+        mediaUrl: mediaUrl,
+        timestamp: "Just now"
+      };
+
+      vaultAssets.unshift(newNode);
+      localStorage.setItem('king_vault_assets', JSON.stringify(vaultAssets));
+      
+      // Clear Input Form fields
+      document.getElementById('assetText').value = '';
+      document.getElementById('assetMediaUrl').value = '';
+      
+      renderVaultData();
+      switchTab('feed');
+    }
+
+    function purgeNode(id) {
+      if(confirm("Confirm asset node drop sequence from system records?")) {
+        vaultAssets = vaultAssets.filter(a => a.id !== id);
+        localStorage.setItem('king_vault_assets', JSON.stringify(vaultAssets));
+        renderVaultData();
+      }
+    }
+
+    function resetSystemData() {
+      if(confirm("Are you sure you want to completely purge local database asset history?")) {
+        localStorage.removeItem('king_vault_assets');
+        vaultAssets = [];
+        renderVaultData();
+      }
+    }
+
+    // Navigation View Engine Routing Tabs
+    function switchTab(targetTab) {
+      activeViewTab = targetTab;
+      ['feed', 'adminPanel', 'devDocs'].forEach(t => {
+        const view = document.getElementById(`view-${t}`);
+        const tabBtn = document.getElementById(`tab-${t}`);
+        if(t === targetTab) {
+          view.classList.remove('hidden');
+          tabBtn.className = "px-4 py-2 rounded-lg bg-amber-500 text-black font-bold transition-all flex items-center gap-1.5";
+        } else {
+          view.classList.add('hidden');
+          tabBtn.className = "px-4 py-2 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5";
         }
+      });
+    }
 
-        function showPasswordWall() {
-            document.getElementById('password-screen').classList.remove('hidden');
-            document.getElementById('main-content').classList.add('hidden');
-        }
+    function openPublishDrawer() {
+      switchTab('adminPanel');
+      document.getElementById('assetText').focus();
+    }
 
-        function handleLogout() {
-            sessionStorage.removeItem('king_portal_access');
-            showToast("Realm Locked Safely.");
-            showPasswordWall();
-        }
+    // Floating Social CTAs Hub Controller Toggle
+    function toggleSocialSuiteMenu() {
+      const menu = document.getElementById('socialSuiteSubMenu');
+      const icon = document.getElementById('centralHubIcon');
+      if (menu.classList.contains('scale-0')) {
+        menu.classList.remove('scale-0', 'translate-y-10', 'opacity-0', 'pointer-events-none');
+        icon.className = "fas fa-times transition-transform duration-300";
+      } else {
+        menu.classList.add('scale-0', 'translate-y-10', 'opacity-0', 'pointer-events-none');
+        icon.className = "fas fa-crown transition-transform duration-300";
+      }
+    }
 
-        // 4. File Upload & Preview Handler
-        function previewMedia(type) {
-            const imgInput = document.getElementById('image-file-input');
-            const videoInput = document.getElementById('video-file-input');
-            const previewContainer = document.getElementById('media-preview-container');
-
-            let file;
-            if (type === 'image') {
-                file = imgInput.files[0];
-                videoInput.value = ""; // Clear conflicting formats
-            } else {
-                file = videoInput.files[0];
-                imgInput.value = ""; // Clear conflicting formats
-            }
-
-            if (!file) return;
-
-            // Enforce basic limit guidelines (under 50mb is healthy for browser state)
-            if (file.size > 50 * 1024 * 1024) {
-                showToast("File size too large. Keep it under 50MB.", "error");
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                selectedMediaType = type;
-                selectedMediaBase64 = e.target.result;
-
-                previewContainer.innerHTML = "";
-                previewContainer.classList.remove('hidden');
-
-                const wrapper = document.createElement('div');
-                wrapper.className = "relative rounded-lg overflow-hidden border border-zinc-800 bg-black max-h-[300px] flex justify-center";
-
-                if (type === 'image') {
-                    const img = document.createElement('img');
-                    img.src = selectedMediaBase64;
-                    img.className = "max-h-[300px] w-auto object-contain";
-                    wrapper.appendChild(img);
-                } else {
-                    const video = document.createElement('video');
-                    video.src = selectedMediaBase64;
-                    video.className = "max-h-[300px] w-auto object-contain";
-                    video.controls = true;
-                    wrapper.appendChild(video);
-                }
-
-                // Delete handle
-                const cancelBtn = document.createElement('button');
-                cancelBtn.onclick = clearSelectedMedia;
-                cancelBtn.className = "absolute top-3 right-3 bg-black/80 hover:bg-rose-600 text-white w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300";
-                cancelBtn.innerHTML = '<i class="fa-solid fa-trash-can text-sm"></i>';
-                wrapper.appendChild(cancelBtn);
-
-                previewContainer.appendChild(wrapper);
-                showToast(`Attached ${type} successfully!`);
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearSelectedMedia() {
-            selectedMediaType = null;
-            selectedMediaBase64 = null;
-            document.getElementById('image-file-input').value = "";
-            document.getElementById('video-file-input').value = "";
-            
-            const container = document.getElementById('media-preview-container');
-            container.classList.add('hidden');
-            container.innerHTML = "";
-        }
-
-        // 5. Publish Post Action
-        function handlePublishPost() {
-            const textInput = document.getElementById('post-text-input');
-            const text = textInput.value.trim();
-
-            if (!text && !selectedMediaBase64) {
-                showToast("Write a line or attach media to publish.", "error");
-                return;
-            }
-
-            // Create new post item
-            const newPost = {
-                id: `post-${Date.now()}`,
-                author: "Member 👑",
-                avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop",
-                timestamp: "Just now",
-                text: text,
-                mediaType: selectedMediaType,
-                mediaUrl: selectedMediaBase64,
-                likes: 0,
-                hasLiked: false,
-                comments: []
-            };
-
-            // Prepend new post
-            appPosts.unshift(newPost);
-            
-            // Clean interface
-            textInput.value = "";
-            clearSelectedMedia();
-            
-            showToast("Content successfully published to Realm.");
-            renderFeed();
-        }
-
-        // 6. Like Action
-        function toggleLike(postId) {
-            const post = appPosts.find(p => p.id === postId);
-            if (!post) return;
-
-            if (post.hasLiked) {
-                post.likes--;
-                post.hasLiked = false;
-            } else {
-                post.likes++;
-                post.hasLiked = true;
-            }
-            renderFeed();
-        }
-
-        // 7. Delete Action
-        function deletePost(postId) {
-            appPosts = appPosts.filter(p => p.id !== postId);
-            showToast("Post removed from feed.");
-            renderFeed();
-        }
-
-        // 8. Add Comment Action
-        function addComment(postId) {
-            const commentInput = document.getElementById(`comment-input-${postId}`);
-            const text = commentInput.value.trim();
-
-            if (!text) return;
-
-            const post = appPosts.find(p => p.id === postId);
-            if (post) {
-                post.comments.push({
-                    user: "Elite Member 👑",
-                    text: text
-                });
-                commentInput.value = "";
-                showToast("Insight published securely.");
-                renderFeed();
-            }
-        }
-
-        // 9. Full-Screen Interactive Media Modals
-        function openMediaModal(url, type) {
-            const modal = document.getElementById('media-modal');
-            const img = document.getElementById('modal-img');
-            const video = document.getElementById('modal-video');
-
-            modal.classList.remove('hidden');
-            if (type === 'image') {
-                img.src = url;
-                img.classList.remove('hidden');
-                video.classList.add('hidden');
-            } else {
-                video.src = url;
-                video.classList.remove('hidden');
-                img.classList.add('hidden');
-                video.play();
-            }
-        }
-
-        function closeMediaModal() {
-            const modal = document.getElementById('media-modal');
-            const video = document.getElementById('modal-video');
-            video.pause();
-            video.src = "";
-            modal.classList.add('hidden');
-        }
-
-        // 10. Social Action Tray Expand-Collapse Action
-        function toggleSocialTray() {
-            const tray = document.getElementById('social-tray');
-            const icon = document.getElementById('fab-icon');
-
-            if (isTrayOpen) {
-                // Close actions
-                tray.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => tray.classList.add('hidden'), 300);
-                icon.style.transform = 'rotate(0deg)';
-                isTrayOpen = false;
-            } else {
-                // Open actions
-                tray.classList.remove('hidden');
-                setTimeout(() => tray.classList.remove('opacity-0', 'translate-y-4'), 50);
-                icon.style.transform = 'rotate(180deg)';
-                isTrayOpen = true;
-            }
-        }
-
-        // 11. Core Renderer Feed Mechanism
-        function renderFeed() {
-            const container = document.getElementById('feed-container');
-            const emptyState = document.getElementById('empty-feed-state');
-            const counter = document.getElementById('post-count-badge');
-
-            container.innerHTML = "";
-            counter.innerText = `${appPosts.length} Posts`;
-
-            if (appPosts.length === 0) {
-                emptyState.classList.remove('hidden');
-                return;
-            } else {
-                emptyState.classList.add('hidden');
-            }
-
-            appPosts.forEach(post => {
-                const card = document.createElement('div');
-                card.className = "glass border border-zinc-900 rounded-2xl p-5 md:p-6 fade-in space-y-4";
-
-                // Header info
-                let mediaElement = "";
-                if (post.mediaType === 'image') {
-                    mediaElement = `
-                        <div class="relative overflow-hidden rounded-xl border border-zinc-900 bg-zinc-950/40 cursor-pointer group mt-3" onclick="openMediaModal('${post.mediaUrl}', 'image')">
-                            <img src="${post.mediaUrl}" class="max-h-[450px] w-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Post attachment">
-                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-                                <span class="bg-black/60 px-4 py-2 rounded-full text-xs text-gold-300 border border-gold-500/20 flex items-center gap-2">
-                                    <i class="fa-solid fa-expand"></i> Expand High-Res
-                                </span>
-                            </div>
-                        </div>
-                    `;
-                } else if (post.mediaType === 'video') {
-                    mediaElement = `
-                        <div class="relative overflow-hidden rounded-xl border border-zinc-900 bg-zinc-950/40 mt-3">
-                            <video src="${post.mediaUrl}" class="max-h-[450px] w-full object-cover" controls preload="metadata"></video>
-                        </div>
-                    `;
-                }
-
-                // Compile comments section
-                let commentsHTML = "";
-                if (post.comments.length > 0) {
-                    commentsHTML = `
-                        <div class="space-y-2 mt-4 pt-4 border-t border-zinc-900/50">
-                            ${post.comments.map(c => `
-                                <div class="bg-zinc-950/40 rounded-lg p-2.5 text-xs border border-zinc-900/30">
-                                    <strong class="text-gold-400 mr-1">${c.user}:</strong>
-                                    <span class="text-zinc-300">${c.text}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                }
-
-                const likeBtnClass = post.hasLiked ? 'text-gold-400 bg-gold-500/10 border-gold-500/20' : 'text-zinc-400 bg-zinc-900 border-zinc-800 hover:text-gold-400 hover:border-gold-500/20';
-
-                card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <img src="${post.avatar}" class="w-10 h-10 rounded-full object-cover border border-gold-500/30" alt="Avatar">
-                            <div>
-                                <h4 class="font-semibold text-sm text-gold-200 flex items-center gap-1.5">${post.author}</h4>
-                                <p class="text-[10px] text-zinc-500">${post.timestamp}</p>
-                            </div>
-                        </div>
-
-                        <button onclick="deletePost('${post.id}')" class="text-zinc-600 hover:text-rose-500 p-2 rounded-lg hover:bg-rose-500/10 transition-colors" title="Delete post">
-                            <i class="fa-solid fa-trash-can text-sm"></i>
-                        </button>
-                    </div>
-
-                    <p class="text-zinc-300 text-sm whitespace-pre-wrap">${post.text}</p>
-                    
-                    ${mediaElement}
-
-                    <!-- Post Engagement Stats and Action -->
-                    <div class="flex items-center justify-between pt-2">
-                        <div class="flex items-center gap-2">
-                            <button onclick="toggleLike('${post.id}')" class="flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-semibold transition-all duration-300 ${likeBtnClass}">
-                                <i class="${post.hasLiked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
-                                <span>${post.likes}</span>
-                            </button>
-                            <span class="text-xs text-zinc-500 flex items-center gap-1.5 ml-2">
-                                <i class="fa-regular fa-comment"></i> ${post.comments.length} Comments
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Comments block -->
-                    ${commentsHTML}
-
-                    <!-- Custom Comment Posting Row -->
-                    <div class="flex items-center gap-2 mt-3 pt-3 border-t border-zinc-900/30">
-                        <input id="comment-input-${post.id}" type="text" placeholder="Post a premium comment..." 
-                               class="flex-grow bg-[#141417] border border-zinc-800 focus:border-gold-500/40 rounded-lg px-3 py-1.5 text-xs text-zinc-300 outline-none transition-all placeholder:text-zinc-600">
-                        <button onclick="addComment('${post.id}')" class="bg-zinc-900 hover:bg-gold-500 hover:text-black border border-zinc-800 hover:border-gold-500 text-gold-400 font-bold px-3 py-1.5 rounded-lg text-xs transition-all active:scale-95 flex items-center gap-1">
-                            <span>Post</span> <i class="fa-solid fa-paper-plane text-[9px]"></i>
-                        </button>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-    </script>
+    function getYoutubeEmbedHash(url) {
+      let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      let match = url.match(regExp);
+      return (match && match[2].length === 11) ? "https://www.youtube.com/embed/" + match[2] : url;
+    }
+  </script>
 </body>
 </html>
-
-```
+```eof
