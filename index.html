@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KING👑 | Secured Control & Media Portal</title>
+  <title>KING👑 | Premium CBT Exam Engine</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -16,7 +16,7 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top right, #141414 0%, #080808 100%);
+      background: radial-gradient(circle at top right, #121214 0%, #08080a 100%);
     }
     .font-royal { font-family: 'Cinzel', serif; }
     .text-gold {
@@ -26,262 +26,222 @@
     }
     .bg-gold { background: linear-gradient(135deg, #f5b041 0%, #f4d03f 100%); }
     .glass-panel {
-      background: rgba(18, 18, 18, 0.8);
+      background: rgba(20, 20, 25, 0.75);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(245, 176, 65, 0.12);
     }
-    .glass-input {
-      background: rgba(5, 5, 5, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glass-input:focus {
-      border-color: #f5b041;
-      box-shadow: 0 0 10px rgba(245, 176, 65, 0.15);
-    }
-    @keyframes pulse-slow {
-      0%, 100% { opacity: 0.2; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.05); }
-    }
-    .glow-sphere { animation: pulse-slow 8s ease-in-out infinite; }
   </style>
 </head>
 <body class="text-gray-200 min-h-screen relative overflow-x-hidden pb-12">
 
-  <!-- BACKGROUND GLOWS -->
-  <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[140px] pointer-events-none glow-sphere"></div>
-  <div class="absolute bottom-10 left-10 w-96 h-96 bg-yellow-600/5 rounded-full blur-[120px] pointer-events-none"></div>
-
-  <!-- 1. MULTI-LEVEL GATEWAY (PASSWORD SHIELD) -->
-  <div id="gatekeeperOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/98 px-4 transition-all duration-500">
-    <div class="max-w-md w-full glass-panel rounded-2xl p-8 text-center shadow-2xl border-t-4 border-t-amber-500 relative">
-      
+  <!-- PASSWORD WALL GATE -->
+  <div id="authGate" class="fixed inset-0 z-50 flex items-center justify-center bg-black/98 px-4 transition-all duration-500">
+    <div class="max-w-md w-full glass-panel rounded-2xl p-8 text-center border-t-4 border-t-amber-500 shadow-2xl">
       <div class="mb-6">
-        <div class="w-20 h-20 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-3 border border-amber-500/20">
-          <span class="text-4xl">👑</span>
+        <div class="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-3 border border-amber-500/20">
+          <span class="text-3xl">👑</span>
         </div>
-        <h1 class="text-3xl font-royal font-bold text-gold tracking-widest">KING</h1>
-        <p class="text-3xs text-amber-500/70 uppercase tracking-widest mt-1">Multi-Tier Cryptographic Access</p>
+        <h1 class="text-2xl font-royal font-bold text-gold tracking-widest">KING EXAM ENGINE</h1>
+        <p class="text-3xs text-amber-500 uppercase tracking-widest mt-1">Computer Based Testing Hub</p>
       </div>
 
-      <!-- Credentials Guidance Toggle Box -->
-      <div class="mb-5 p-3 bg-zinc-900/90 rounded-xl border border-zinc-800 text-left text-xs space-y-1 text-gray-400">
-        <p class="font-semibold text-amber-500 flex items-center gap-1"><i class="fas fa-info-circle"></i> Gatekeeper Passcodes:</p>
-        <p>• Admin Pass: <span class="text-white font-mono select-all">KING_ADMIN</span> <span class="text-2xs text-zinc-500">(Full Uploads & Controls)</span></p>
-        <p>• User Pass: <span class="text-white font-mono select-all">KING_USER</span> <span class="text-2xs text-zinc-500">(Read-Only Secure View)</span></p>
+      <div class="mb-5 p-3 bg-zinc-900/90 rounded-xl border border-zinc-800 text-left text-xs text-gray-400 space-y-1">
+        <p class="font-semibold text-amber-500"><i class="fas fa-key"></i> Operational Access Keys:</p>
+        <p>• Admin: <span class="text-white font-mono select-all">KING_ADMIN</span> (Add/Edit Questions)</p>
+        <p>• Candidate: <span class="text-white font-mono select-all">KING_USER</span> (Practice Exams)</p>
       </div>
 
-      <form onsubmit="verifyGateAccess(event)" class="space-y-4">
-        <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-500/40">
-            <i class="fas fa-shield-alt"></i>
-          </span>
-          <input 
-            type="password" 
-            id="gatePasskey" 
-            placeholder="Enter Level Passkey..." 
-            class="w-full pl-10 pr-12 py-3.5 bg-black/40 border border-zinc-800 rounded-xl focus:outline-none focus:border-amber-500 text-center font-mono tracking-widest text-gray-100"
-            required
-          >
-          <button type="button" onclick="togglePasswordInput()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 hover:text-amber-400">
-            <i id="eyeIcon" class="fas fa-eye"></i>
-          </button>
+      <form onsubmit="authenticateAccess(event)" class="space-y-4">
+        <input 
+          type="password" 
+          id="gateKey" 
+          placeholder="Enter Passcode..." 
+          class="w-full py-3 bg-black/40 border border-zinc-800 rounded-xl focus:outline-none focus:border-amber-500 text-center font-mono tracking-widest text-white"
+          required
+        >
+        <div id="gateError" class="hidden text-red-400 text-xs text-left bg-red-950/20 border border-red-900/50 p-2 rounded-lg">
+          ❌ Invalid platform access credential.
         </div>
-
-        <div id="gateError" class="hidden text-red-400 text-xs bg-red-950/30 border border-red-900/50 py-2 px-3 rounded-lg text-left">
-          ⚠️ Access Denied. Check credentials and retry.
-        </div>
-
-        <button type="submit" class="w-full bg-gold hover:opacity-90 text-black font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2">
-          <span>Authenticate Session</span>
+        <button type="submit" class="w-full bg-gold text-black font-bold py-3 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2">
+          <span>Enter Testing Portal</span>
           <i class="fas fa-sign-in-alt"></i>
         </button>
       </form>
     </div>
   </div>
 
-
-  <!-- MAIN SYSTEM PANEL -->
-  <div id="portalDashboard" class="hidden opacity-0 transition-opacity duration-500">
+  <!-- INTERACTIVE APPLICATION LAYOUT -->
+  <div id="mainDashboard" class="hidden opacity-0 transition-opacity duration-500">
     
-    <!-- SYSTEM NAVBAR -->
-    <header class="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/80 py-4 px-4 md:px-8">
-      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <div class="flex items-center gap-3">
-          <span class="text-2xl">👑</span>
-          <div>
-            <h1 class="text-xl font-royal font-black text-white tracking-wider flex items-center gap-2">
-              KING <span class="text-xs bg-amber-500/10 border border-amber-500/30 text-amber-500 px-2 py-0.5 rounded" id="roleBadge">User</span>
-            </h1>
-            <p class="text-3xs text-zinc-500 tracking-widest uppercase">Decentralized Content Hub</p>
-          </div>
+    <!-- DASHBOARD NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-900 py-4 px-4 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">👑</span>
+        <div>
+          <h1 class="text-lg font-royal font-black text-white tracking-wide">KING <span id="userBadge" class="text-3xs bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded border border-amber-500/20">Student</span></h1>
+          <p class="text-3xs text-zinc-500 uppercase tracking-widest">CBT Evaluation System</p>
         </div>
-
-        <!-- System Architecture Tabs -->
-        <div class="flex bg-black/60 rounded-xl p-1 border border-zinc-800 text-xs font-medium">
-          <button onclick="switchTab('feed')" id="tab-feed" class="px-4 py-2 rounded-lg bg-amber-500 text-black font-bold transition-all flex items-center gap-1.5">
-            <i class="fas fa-photo-video"></i> Secured Vault
-          </button>
-          <button onclick="switchTab('adminPanel')" id="tab-adminPanel" class="px-4 py-2 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5">
-            <i class="fas fa-sliders-h"></i> Control Console
-          </button>
-          <button onclick="switchTab('devDocs')" id="tab-devDocs" class="px-4 py-2 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5">
-            <i class="fas fa-code-branch"></i> Deploy Architecture
-          </button>
-        </div>
-
-        <button onclick="lockPortal()" class="text-xs text-zinc-400 hover:text-red-400 bg-zinc-900 border border-zinc-800 px-3 py-2 rounded-lg transition-all flex items-center gap-1">
-          <i class="fas fa-power-off"></i> <span class="hidden md:inline">Exit Portal</span>
-        </button>
       </div>
+
+      <!-- Structural Modules -->
+      <div class="flex bg-black/50 border border-zinc-800 rounded-xl p-1 text-xs">
+        <button onclick="switchTab('lobby')" id="tab-lobby" class="px-4 py-2 rounded-lg bg-amber-500 text-black font-bold transition-all">Exam Room</button>
+        <button onclick="switchTab('admin')" id="tab-admin" class="px-4 py-2 rounded-lg text-zinc-400 hover:text-white transition-all hidden">Question Manager</button>
+      </div>
+
+      <button onclick="logoutSession()" class="text-xs text-zinc-500 hover:text-red-400 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-lg">Exit</button>
     </header>
 
-    <!-- CONTENT ROOT VIEW -->
-    <main class="max-w-7xl mx-auto px-4 mt-8">
+    <!-- CORE MODULE WRAPPERS -->
+    <main class="max-w-5xl mx-auto px-4 mt-8">
       
-      <!-- TAB A: CONTENT VAULT FEED -->
-      <section id="view-feed" class="space-y-6">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-zinc-900 pb-4">
-          <div>
-            <h2 class="text-xl font-royal font-bold text-zinc-100 flex items-center gap-2">
-              <i class="fas fa-folder-open text-amber-500 text-sm"></i> Restricted Repositories
-            </h2>
-            <p class="text-xs text-zinc-500">Decrypted media and encrypted logs fetched from active endpoints.</p>
-          </div>
-
-          <!-- Quick Actions & Dynamic Counters -->
-          <div class="flex items-center gap-3 text-xs w-full md:w-auto justify-between md:justify-end">
-            <div class="bg-zinc-900/60 border border-zinc-800 rounded-lg px-3 py-2 flex gap-4 text-zinc-400 font-mono">
-              <div>Posts: <span class="text-amber-500 font-bold" id="cnt-all">0</span></div>
-              <div>Videos: <span class="text-sky-400 font-bold" id="cnt-vid">0</span></div>
+      <!-- SUB-MODULE: LOBBY -->
+      <section id="view-lobby" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- LEFT SIDEBAR: SELECT SUBJECT -->
+          <div class="md:col-span-1 space-y-4">
+            <div class="glass-panel rounded-2xl p-5 space-y-3">
+              <h3 class="text-sm font-royal font-bold text-amber-500 uppercase tracking-wider"><i class="fas fa-book"></i> Available Syllabus</h3>
+              <p class="text-2xs text-zinc-400">Select a course cluster below to spin up an adaptive CBT environment.</p>
+              
+              <div class="space-y-2" id="subjectSelectionList">
+                <!-- Subject lists generated dynamically -->
+              </div>
             </div>
-            <button onclick="openPublishDrawer()" id="floatingAddAssetBtn" class="bg-gold text-black font-bold px-4 py-2 rounded-xl shadow transition-all hover:scale-105 flex items-center gap-1.5 hidden">
-              <i class="fas fa-plus-circle"></i> Add Asset
-            </button>
           </div>
-        </div>
 
-        <!-- Grid Container for Media Cards -->
-        <div id="vaultGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Populated dynamically via JS engine -->
-        </div>
+          <!-- RIGHT MODULE: ASSESSMENT INTERFACE -->
+          <div class="md:col-span-2">
+            
+            <!-- STAGE 1: EXAM IDLE READY STATE -->
+            <div id="pane-ready" class="glass-panel rounded-2xl p-8 text-center space-y-4">
+              <div class="text-4xl">📝</div>
+              <h3 class="text-xl font-royal font-bold text-white" id="readyCourseTitle">Select a Subject</h3>
+              <p class="text-xs text-zinc-400 max-w-md mx-auto">
+                Each simulation session processes loaded random past objective configurations. Ensure steady terminal workspace alignment before beginning.
+              </p>
+              <div class="flex justify-center gap-6 text-xs text-zinc-400 font-mono py-2 bg-black/30 rounded-xl border border-zinc-900 max-w-xs mx-auto">
+                <div><i class="far fa-clock text-amber-500"></i> <span id="readyTime">0</span> Mins</div>
+                <div><i class="fas fa-list-ol text-amber-500"></i> <span id="readyCount">0</span> Items</div>
+              </div>
+              <button id="startTestBtn" disabled onclick="startCbtSimulation()" class="bg-gold disabled:opacity-30 text-black font-bold px-8 py-3 rounded-xl transition-all shadow-lg shadow-amber-500/10">
+                Launch CBT Session
+              </button>
+            </div>
 
-        <!-- Empty Vault Placeholder -->
-        <div id="vaultEmptyState" class="hidden text-center py-20 glass-panel rounded-2xl border border-dashed border-zinc-800">
-          <div class="text-5xl mb-4">🗄️</div>
-          <h4 class="text-base font-bold text-zinc-300">Vault Repository is Empty</h4>
-          <p class="text-xs text-zinc-500 mt-1 max-w-sm mx-auto">Authenticate with an Admin Passkey to publish text notifications, high-res images, and video feeds.</p>
+            <!-- STAGE 2: LIVE SIMULATOR WORKSTATION -->
+            <div id="pane-testing" class="hidden glass-panel rounded-2xl p-6 space-y-6 relative border border-amber-500/20">
+              <!-- Live Top Stats Grid -->
+              <div class="flex justify-between items-center bg-black/50 px-4 py-3 rounded-xl border border-zinc-900">
+                <span class="text-xs font-royal font-bold tracking-wide text-zinc-400" id="testingSubjectLabel">Mathematics Mock</span>
+                <div class="flex items-center gap-2 text-sm font-mono font-bold text-red-400 bg-red-950/30 border border-red-900/40 px-3 py-1 rounded-lg">
+                  <i class="far fa-clock"></i> <span id="liveTimerBox">00:00</span>
+                </div>
+              </div>
+
+              <!-- Question Container Box -->
+              <div class="space-y-4 bg-zinc-950/40 p-5 rounded-xl border border-zinc-900">
+                <div class="text-2xs text-zinc-500 uppercase font-mono">Question <span id="activeQuestionIndexLabel">1</span> of <span id="totalQuestionsLabel">0</span></div>
+                <p class="text-sm text-gray-200 font-medium leading-relaxed" id="liveQuestionText">Loading examination database parameters...</p>
+              </div>
+
+              <!-- Options Grid Array -->
+              <div class="grid grid-cols-1 gap-3" id="liveOptionsGrid">
+                <!-- Radio Choices inserted dynamically -->
+              </div>
+
+              <!-- Simulator Control Steering Footer -->
+              <div class="flex justify-between items-center pt-4 border-t border-zinc-900">
+                <div class="flex gap-2">
+                  <button onclick="navigateTest(-1)" class="bg-zinc-900 hover:bg-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-xs font-semibold border border-zinc-800">Prev</button>
+                  <button onclick="navigateTest(1)" class="bg-zinc-900 hover:bg-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-xs font-semibold border border-zinc-800">Next</button>
+                </div>
+                <button onclick="terminateAndEvaluateTest()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2 rounded-xl text-xs shadow-lg shadow-red-600/20 transition-all">Submit Examination</button>
+              </div>
+            </div>
+
+            <!-- STAGE 3: METRIC ANALYSIS EVALUATION CARD -->
+            <div id="pane-results" class="hidden glass-panel rounded-2xl p-8 text-center space-y-6 border border-emerald-500/20">
+              <div>
+                <span class="text-4xl text-emerald-500" id="resultStatusEmoji">🏆</span>
+                <h3 class="text-xl font-royal font-bold text-white mt-2">Performance Assessment Record</h3>
+                <p class="text-xs text-zinc-500" id="resultSubjectLabel">Mathematics</p>
+              </div>
+
+              <!-- Big Score Circle Badge -->
+              <div class="w-32 h-32 rounded-full border-4 border-emerald-500/30 flex flex-col items-center justify-center mx-auto bg-emerald-500/5">
+                <span class="text-3xl font-mono font-black text-white" id="scorePercentLabel">0%</span>
+                <span class="text-3xs font-mono uppercase text-zinc-500 mt-1" id="scoreRawLabel">0 / 0 Right</span>
+              </div>
+
+              <!-- Diagnostic Explanations Grid -->
+              <div id="diagnosticLogList" class="text-left text-xs space-y-2 bg-black/40 p-4 rounded-xl border border-zinc-900 max-h-60 overflow-y-auto">
+                <!-- Answers log verification rows built dynamically -->
+              </div>
+
+              <button onclick="returnToLobbyIdle()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 px-6 py-2.5 rounded-xl text-xs font-semibold transition-all">
+                Return to Exam Room
+              </button>
+            </div>
+
+          </div>
         </div>
       </section>
 
-      <!-- TAB B: CONTROL PANELS / ADMIN LEVEL CONTROLS -->
-      <section id="view-adminPanel" class="hidden space-y-6">
-        <div class="glass-panel rounded-2xl p-6 border-l-4 border-l-purple-500">
-          <h3 class="text-lg font-royal font-bold text-white flex items-center gap-2">
-            <i class="fas fa-user-shield text-purple-400"></i> Enterprise Access Control & Settings
-          </h3>
-          <p class="text-xs text-zinc-400 mt-1">Configure systemic real-time switches, database drivers, and local cache synchronization states.</p>
-          
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-            <div class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900 space-y-2">
-              <label class="text-xs font-semibold text-zinc-400 uppercase tracking-wide block">Active Database Driver</label>
-              <select class="w-full bg-zinc-900 text-xs text-zinc-300 border border-zinc-800 rounded-lg p-2.5 focus:outline-none focus:border-amber-500">
-                <option>Supabase Driver (Real-time WebSockets)</option>
-                <option>Neon Serverless Postgres (Pool Cluster)</option>
-                <option>Gun.js Decentralized Mesh (P2P Cache)</option>
-                <option selected>LocalStorage Standalone Client (Mocking Enabled)</option>
+      <!-- SUB-MODULE: ADMIN CONTROLLER PLATFORM -->
+      <section id="view-admin" class="hidden space-y-6">
+        <div class="glass-panel rounded-2xl p-6 space-y-4">
+          <h3 class="text-md font-royal font-bold text-amber-500"><i class="fas fa-plus-circle"></i> Add Question to System Database</h3>
+          <p class="text-2xs text-zinc-400">Injected questions immediately join the active pools available inside the CBT Workstation.</p>
+
+          <form onsubmit="handleQuestionInjection(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="text-zinc-400 block mb-1">Target Subject Category</label>
+                <select id="admSubject" class="w-full bg-zinc-900 border border-zinc-800 text-white rounded-lg p-2.5 focus:outline-none focus:border-amber-500"></select>
+              </div>
+              <div class="md:col-span-2">
+                <label class="text-zinc-400 block mb-1">Question Description String</label>
+                <input type="text" id="admQuestion" placeholder="e.g., What is the derivative of sin(x) with respect to x?" class="w-full bg-zinc-900 border border-zinc-800 text-white rounded-lg p-2.5 focus:outline-none focus:border-amber-500" required>
+              </div>
+            </div>
+
+            <!-- Choices Input Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              <div>
+                <label class="text-zinc-400 block mb-1">Option A</label>
+                <input type="text" id="admOptA" class="w-full bg-zinc-900 border border-zinc-800 text-white rounded-lg p-2.5 focus:outline-none" required>
+              </div>
+              <div>
+                <label class="text-zinc-400 block mb-1">Option B</label>
+                <input type="text" id="admOptB" class="w-full bg-zinc-900 border border-zinc-800 text-white rounded-lg p-2.5 focus:outline-none" required>
+              </div>
+              <div>
+                <label class="text-zinc-400 block mb-1">Option C</label>
+                <input type="text" id="admOptC" class="w-full bg-zinc-900 border border-zinc-800 text-white rounded-lg p-2.5 focus:outline-none" required>
+              </div>
+              <div>
+                <label class="text-zinc-400 block mb-1">Option D</label>
+                <input type="text" id="admOptD" class="w-full bg-zinc-900 border border-zinc-800 text-white rounded-lg p-2.5 focus:outline-none" required>
+              </div>
+            </div>
+
+            <div class="w-full md:w-1/3 pt-2">
+              <label class="text-zinc-400 block mb-1">Designated Correct Option Index</label>
+              <select id="admCorrect" class="w-full bg-zinc-900 border border-zinc-800 text-amber-400 font-bold rounded-lg p-2.5 focus:outline-none">
+                <option value="A">Option A</option>
+                <option value="B">Option B</option>
+                <option value="C">Option C</option>
+                <option value="D">Option D</option>
               </select>
             </div>
 
-            <div class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900 space-y-2">
-              <label class="text-xs font-semibold text-zinc-400 uppercase tracking-wide block">Privacy Visibility</label>
-              <div class="flex items-center justify-between pt-1">
-                <span class="text-xs text-zinc-300">Enforce Password Encryption</span>
-                <input type="checkbox" checked class="w-4 h-4 accent-amber-500">
-              </div>
-            </div>
-
-            <div class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900 space-y-2">
-              <label class="text-xs font-semibold text-zinc-400 uppercase tracking-wide block">System Purge</label>
-              <button onclick="resetSystemData()" class="w-full bg-red-950/40 border border-red-900/60 text-red-400 hover:bg-red-900/40 text-xs py-2 rounded-lg transition-all font-semibold">
-                Wipe Local Database Cache
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Simulated Direct Posting Form Inside Controller Interface -->
-        <div id="adminFormSection" class="glass-panel rounded-2xl p-6 opacity-40 pointer-events-none transition-all duration-300">
-          <div class="flex items-center justify-between mb-4">
-            <h4 class="text-sm font-royal font-bold text-amber-500">Add Content to Secure Vault (Admin Only)</h4>
-            <span class="text-3xs bg-red-500/10 border border-red-500/20 text-red-400 px-2 py-0.5 rounded uppercase font-mono tracking-widest" id="lockNotice">Locked</span>
-          </div>
-
-          <form onsubmit="handleAssetPublish(event)" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="space-y-1.5">
-                <label class="text-2xs font-bold text-zinc-400 uppercase">Asset Asset Content / Text Decree</label>
-                <textarea id="assetText" placeholder="Write description text, internal notices or code remarks..." rows="4" class="w-full glass-input rounded-xl p-3 text-sm text-white focus:outline-none resize-none" required></textarea>
-              </div>
-
-              <div class="space-y-3">
-                <div>
-                  <label class="text-2xs font-bold text-zinc-400 uppercase block mb-1">Asset Media Classification</label>
-                  <select id="assetType" onchange="adjustMediaInputs()" class="w-full bg-zinc-900 text-xs border border-zinc-800 rounded-lg p-2.5 focus:outline-none focus:border-amber-500 text-white">
-                    <option value="none">Pure Text Record</option>
-                    <option value="image">Image Attachment</option>
-                    <option value="video">Video Attachment</option>
-                  </select>
-                </div>
-
-                <!-- Dynamic Media Source URL Field -->
-                <div id="assetUrlField" class="hidden">
-                  <label class="text-2xs font-bold text-zinc-400 uppercase block mb-1">Media Source URL</label>
-                  <input type="text" id="assetMediaUrl" placeholder="Paste full HTTP file address or YouTube URL..." class="w-full glass-input rounded-lg p-2.5 text-xs text-white focus:outline-none">
-                </div>
-              </div>
-            </div>
-
-            <button type="submit" class="bg-amber-500 text-black text-xs font-bold px-6 py-3 rounded-xl transition-all hover:opacity-90 flex items-center gap-1">
-              <i class="fas fa-layer-group"></i> Commit Node to DB Pipeline
+            <button type="submit" class="bg-amber-500 text-black font-bold px-6 py-2.5 rounded-xl transition-all hover:opacity-90">
+              Inject Into Question Database
             </button>
           </form>
-        </div>
-      </section>
-
-      <!-- TAB C: DEPLOYMENT ARCHITECTURE DOCS -->
-      <section id="view-devDocs" class="hidden space-y-6">
-        <div class="glass-panel rounded-2xl p-6 space-y-4">
-          <div class="flex items-center gap-2 border-b border-zinc-800 pb-3">
-            <i class="fas fa-project-diagram text-teal-400 text-lg"></i>
-            <div>
-              <h3 class="text-base font-royal font-bold text-white">Global Cloud Deployment Blueprint</h3>
-              <p class="text-xs text-zinc-500">Step-by-step pipeline for building secure backend infrastructure.</p>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-gray-300">
-            <div class="space-y-3">
-              <h4 class="font-bold text-amber-400 flex items-center gap-1"><i class="fab fa-github"></i> 1. Static Vercel & GitHub Actions Setup</h4>
-              <p class="text-zinc-400 leading-relaxed">
-                Commit this static system layout code directly to a secure private GitHub repository. Connect the repository branch to <strong>Vercel</strong> or <strong>GitHub Pages</strong> for high-availability frontend content delivery networks (CDNs).
-              </p>
-              <div class="bg-black/80 font-mono p-3 rounded-lg border border-zinc-900 overflow-x-auto text-2xs text-teal-400">
-                git init<br>git add index.html<br>git commit -m "feat: king core structure initialized"
-              </div>
-            </div>
-
-            <div class="space-y-3">
-              <h4 class="font-bold text-amber-400 flex items-center gap-1"><i class="fas fa-database"></i> 2. Full-Stack Supabase / Neon Architecture Integration</h4>
-              <p class="text-zinc-400 leading-relaxed">
-                Replace the mock operations inside the initialization script with a live instance connection string. Hook up Row Level Security (RLS) policies within Supabase or Neon PostgreSQL to safely restrict tables based on client authorizations.
-              </p>
-              <div class="bg-black/80 font-mono p-3 rounded-lg border border-zinc-900 text-2xs text-zinc-500">
-                SELECT enable_row_level_security('vault_assets');<br>
-                CREATE POLICY admin_isolation ON vault_assets FOR ALL TO admin_role;
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -289,349 +249,346 @@
 
     <!-- FLOATING FLOATED QUICK CONTACT HUB (WHATSAPP, TELEGRAM, DISCORD) -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col-reverse items-end gap-3">
-      
-      <!-- Primary Core Toggle Anchor -->
-      <button 
-        onclick="toggleSocialSuiteMenu()" 
-        id="socialCentralToggle"
-        class="w-14 h-14 bg-gold text-black rounded-full shadow-[0_4px_25px_rgba(245,176,65,0.4)] flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition-all relative z-50 focus:outline-none"
-      >
-        <span class="absolute top-0 right-0 w-3 h-3 bg-red-500 border-2 border-black rounded-full"></span>
+      <button onclick="toggleSocialSuiteMenu()" id="socialCentralToggle" class="w-14 h-14 bg-gold text-black rounded-full shadow-[0_4px_25px_rgba(245,176,65,0.4)] flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition-all relative z-50">
         <i class="fas fa-crown transition-transform duration-300" id="centralHubIcon"></i>
       </button>
-
-      <!-- Sub-Action Vertical Navigation Items -->
-      <div 
-        id="socialSuiteSubMenu" 
-        class="flex flex-col gap-3 items-end transition-all duration-300 transform scale-0 translate-y-10 opacity-0 pointer-events-none"
-      >
-        <!-- Telegram Channel Hook -->
+      <div id="socialSuiteSubMenu" class="flex flex-col gap-3 items-end transition-all duration-300 transform scale-0 translate-y-10 opacity-0 pointer-events-none">
         <a href="https://t.me/yourusername" target="_blank" rel="noreferrer" class="flex items-center gap-2 group">
-          <span class="bg-zinc-950 text-2xs text-sky-400 font-bold py-1 px-2.5 rounded-lg border border-sky-500/20 transform scale-0 group-hover:scale-100 transition-transform origin-right">
-            Telegram Link
-          </span>
-          <div class="w-12 h-12 bg-sky-500 text-white rounded-full flex items-center justify-center text-lg hover:scale-110 shadow-lg shadow-sky-500/20 transition-all">
-            <i class="fab fa-telegram-plane"></i>
-          </div>
+          <span class="bg-zinc-950 text-2xs text-sky-400 font-bold py-1 px-2.5 rounded-lg border border-sky-500/20 transform scale-0 group-hover:scale-100 transition-transform origin-right">Telegram Link</span>
+          <div class="w-12 h-12 bg-sky-500 text-white rounded-full flex items-center justify-center text-lg shadow-lg"><i class="fab fa-telegram-plane"></i></div>
         </a>
-
-        <!-- WhatsApp Direct API Integration Hook -->
-        <a href="https://wa.me/2340000000000?text=Hello%20KING%20TEAM!%20System%20Access%20Request." target="_blank" rel="noreferrer" class="flex items-center gap-2 group">
-          <span class="bg-zinc-950 text-2xs text-emerald-400 font-bold py-1 px-2.5 rounded-lg border border-emerald-500/20 transform scale-0 group-hover:scale-100 transition-transform origin-right">
-            WhatsApp Contact
-          </span>
-          <div class="w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center text-lg hover:scale-110 shadow-lg shadow-emerald-500/20 transition-all">
-            <i class="fab fa-whatsapp"></i>
-          </div>
-        </a>
-
-        <!-- Discord Guild Hook -->
-        <a href="https://discord.gg/yourinvite" target="_blank" rel="noreferrer" class="flex items-center gap-2 group">
-          <span class="bg-zinc-950 text-2xs text-indigo-400 font-bold py-1 px-2.5 rounded-lg border border-indigo-500/20 transform scale-0 group-hover:scale-100 transition-transform origin-right">
-            Discord Channel
-          </span>
-          <div class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-md hover:scale-110 shadow-lg shadow-indigo-600/20 transition-all">
-            <i class="fab fa-discord"></i>
-          </div>
+        <a href="https://wa.me/2340000000000?text=Hello%20KING%20TEAM!%20CBT%20System%20Access%20Request." target="_blank" rel="noreferrer" class="flex items-center gap-2 group">
+          <span class="bg-zinc-950 text-2xs text-emerald-400 font-bold py-1 px-2.5 rounded-lg border border-emerald-500/20 transform scale-0 group-hover:scale-100 transition-transform origin-right">WhatsApp Contact</span>
+          <div class="w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center text-lg shadow-lg"><i class="fab fa-whatsapp"></i></div>
         </a>
       </div>
     </div>
 
     <!-- MAIN APP FOOTER MARK -->
-    <footer class="mt-20 py-6 border-t border-zinc-900/80 text-center text-3xs text-zinc-600 font-mono tracking-widest uppercase">
+    <footer class="mt-20 py-6 border-t border-zinc-900 text-center text-3xs text-zinc-600 font-mono tracking-widest uppercase">
       MADE WITH LOVE BY KING TEAM
     </footer>
 
   </div>
 
-  <!-- CONTROL SCRIPT LOGIC ENGINE -->
+  <!-- CONTROL SYSTEM ENGINE -->
   <script>
-    // Access Passkey Controls
-    const SECURE_CREDENTIALS = {
-      "KING_ADMIN": "admin",
-      "KING_USER": "user"
+    const SYSTEM_ACCOUNTS = { "KING_ADMIN": "admin", "KING_USER": "student" };
+
+    // Default Seed Exam Bank Configuration
+    const BASE_EXAM_BANK_FALLBACK = {
+      "math": {
+        name: "Mathematics Syllabus",
+        duration: 3, // minutes
+        questions: [
+          { q: "Evaluate the limit of (x^2 - 1)/(x - 1) as x approaches 1.", choices: { A: "0", B: "1", C: "2", D: "Undefined" }, correct: "C" },
+          { q: "Solve for x in the equation log2(x) + log2(x - 2) = 3.", choices: { A: "4", B: "2", C: "8", D: "-2" }, correct: "A" },
+          { q: "What is the standard deviation of a sample population with zero variance?", choices: { A: "1", B: "0", C: "-1", D: "Infinity" }, correct: "B" }
+        ]
+      },
+      "physics": {
+        name: "Engineering Physics Mock",
+        duration: 4,
+        questions: [
+          { q: "What is the absolute velocity of a photon traveling within a perfect vacuum environment?", choices: { A: "3 x 10^8 m/s", B: "1.5 x 10^8 m/s", C: "Variable", D: "Zero" }, correct: "A" },
+          { q: "Which thermodynamic pathway runs with absolute net zero heating exchange parameters across boundary skins?", choices: { A: "Isobaric", B: "Isochoric", C: "Isothermal", D: "Adiabatic" }, correct: "D" }
+        ]
+      },
+      "english": {
+        name: "English Grammar Proficiency",
+        duration: 2,
+        questions: [
+          { q: "Choose the correct option: The council of elders ______ reached a unanimous verdict.", choices: { A: "have", B: "has", C: "is", D: "are" }, correct: "B" }
+        ]
+      }
     };
 
+    let examDataStore = JSON.parse(localStorage.getItem('king_exam_bank')) || BASE_EXAM_BANK_FALLBACK;
     let currentUserRole = null;
-    let activeViewTab = 'feed';
+    let selectedSubjectKey = null;
+    
+    // Live Testing Engine Runtime States
+    let activeExamQuestions = [];
+    let studentCandidateAnswers = {}; // map of index -> selected string key
+    let activeQuestionIndex = 0;
+    let examCountdownTimerInterval = null;
+    let remainingSeconds = 0;
 
-    // Base Seed Mock Storage Setup
-    const CORE_VAULT_FALLBACK = [
-      {
-        id: "node-1",
-        text: "System broadcast status confirmation. Multi-level isolation policies activated successfully across standard data arrays.",
-        mediaType: "none",
-        mediaUrl: "",
-        timestamp: "Active Node"
-      },
-      {
-        id: "node-2",
-        text: "Visual configuration reference asset. Admin authenticated access verified.",
-        mediaType: "image",
-        mediaUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
-        timestamp: "5 hours ago"
-      },
-      {
-        id: "node-3",
-        text: "Cinematic real-time video streaming stream check.",
-        mediaType: "video",
-        mediaUrl: "https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-42152-large.mp4",
-        timestamp: "1 day ago"
-      }
-    ];
-
-    let vaultAssets = JSON.parse(localStorage.getItem('king_vault_assets')) || CORE_VAULT_FALLBACK;
-
-    // Check existing runtime session
     document.addEventListener('DOMContentLoaded', () => {
-      const savedAuth = sessionStorage.getItem('king_session_role');
-      if (savedAuth) {
-        initializeAuthorizedSession(savedAuth);
-      }
+      const savedAuth = sessionStorage.getItem('king_cbt_role');
+      if (savedAuth) launchPlatformSession(savedAuth);
     });
 
-    function togglePasswordInput() {
-      const field = document.getElementById('gatePasskey');
-      const icon = document.getElementById('eyeIcon');
-      if (field.type === "password") {
-        field.type = "text";
-        icon.className = "fas fa-eye-slash";
-      } else {
-        field.type = "password";
-        icon.className = "fas fa-eye";
-      }
-    }
-
-    // Process Gate Verification
-    function verifyGateAccess(e) {
+    function authenticateAccess(e) {
       e.preventDefault();
-      const enteredKey = document.getElementById('gatePasskey').value.trim();
-      const errorDiv = document.getElementById('gateError');
+      const enteredKey = document.getElementById('gateKey').value.trim();
+      const err = document.getElementById('gateError');
 
-      if (SECURE_CREDENTIALS[enteredKey]) {
-        errorDiv.classList.add('hidden');
-        const assignedRole = SECURE_CREDENTIALS[enteredKey];
-        sessionStorage.setItem('king_session_role', assignedRole);
-        initializeAuthorizedSession(assignedRole);
+      if (SYSTEM_ACCOUNTS[enteredKey]) {
+        err.classList.add('hidden');
+        const role = SYSTEM_ACCOUNTS[enteredKey];
+        sessionStorage.setItem('king_cbt_role', role);
+        launchPlatformSession(role);
       } else {
-        errorDiv.classList.remove('hidden');
-        document.getElementById('gatePasskey').value = '';
+        err.classList.remove('hidden');
+        document.getElementById('gateKey').value = '';
       }
     }
 
-    // Setup active window settings based on privileges
-    function initializeAuthorizedSession(role) {
+    function launchPlatformSession(role) {
       currentUserRole = role;
+      document.getElementById('authGate').classList.add('opacity-0', 'pointer-events-none');
       
-      // Animate overlay dismissal
-      const overlay = document.getElementById('gatekeeperOverlay');
-      const dashboard = document.getElementById('portalDashboard');
-      
-      overlay.classList.add('opacity-0', 'pointer-events-none');
       setTimeout(() => {
-        overlay.classList.add('hidden');
-        dashboard.classList.remove('hidden');
-        setTimeout(() => dashboard.classList.remove('opacity-0'), 50);
-        
-        // Dynamic Role Rendering Adjustments
-        const badge = document.getElementById('roleBadge');
-        const adminSection = document.getElementById('adminFormSection');
-        const lockNotice = document.getElementById('lockNotice');
-        const quickAddBtn = document.getElementById('floatingAddAssetBtn');
+        document.getElementById('authGate').classList.add('hidden');
+        const main = document.getElementById('mainDashboard');
+        main.classList.remove('hidden');
+        setTimeout(() => main.classList.remove('opacity-0'), 50);
 
+        // Adjust modules access UI
+        const adminTab = document.getElementById('tab-admin');
+        const userBadge = document.getElementById('userBadge');
         if (role === 'admin') {
-          badge.innerText = "Master Admin";
-          badge.className = "text-xs bg-purple-500/10 border border-purple-500/30 text-purple-400 px-2 py-0.5 rounded";
-          if(adminSection) {
-            adminSection.classList.remove('opacity-40', 'pointer-events-none');
-            lockNotice.innerText = "Active Link";
-            lockNotice.className = "text-3xs bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded uppercase font-mono tracking-widest";
-          }
-          if(quickAddBtn) quickAddBtn.classList.remove('hidden');
-        } else {
-          badge.innerText = "Standard User";
-          badge.className = "text-xs bg-zinc-800 border border-zinc-700 text-zinc-400 px-2 py-0.5 rounded";
+          adminTab.classList.remove('hidden');
+          userBadge.innerText = "Master Admin";
+          userBadge.className = "text-3xs bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20";
         }
 
-        renderVaultData();
+        populateSubjectPanels();
+        populateAdminSubjectSelect();
       }, 400);
     }
 
-    function lockPortal() {
-      sessionStorage.removeItem('king_session_role');
+    function logoutSession() {
+      sessionStorage.removeItem('king_cbt_role');
       window.location.reload();
     }
 
-    // Render Database Pipeline Content
-    function renderVaultData() {
-      const grid = document.getElementById('vaultGrid');
-      const emptyState = document.getElementById('vaultEmptyState');
-      
-      if (!grid) return;
-      grid.innerHTML = '';
+    function populateSubjectPanels() {
+      const container = document.getElementById('subjectSelectionList');
+      container.innerHTML = '';
 
-      if (vaultAssets.length === 0) {
-        emptyState.classList.remove('hidden');
-        updateCounters();
-        return;
-      }
-      emptyState.classList.add('hidden');
-
-      vaultAssets.forEach(asset => {
-        let mediaSegment = '';
-        
-        if (asset.mediaType === 'image') {
-          mediaSegment = `
-            <div class="mt-3 rounded-lg overflow-hidden border border-zinc-900 bg-black/40">
-              <img src="${asset.mediaUrl}" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/600x400/111/f5b041?text=Media+Broker+Error';">
-            </div>
-          `;
-        } else if (asset.mediaType === 'video') {
-          const isYoutube = asset.mediaUrl.includes('youtube.com') || asset.mediaUrl.includes('youtu.be');
-          if (isYoutube) {
-            let embed = getYoutubeEmbedHash(asset.mediaUrl);
-            mediaSegment = `
-              <div class="mt-3 rounded-lg overflow-hidden border border-zinc-900 aspect-video bg-black">
-                <iframe class="w-full h-full" src="${embed}" frameborder="0" allowfullscreen></iframe>
-              </div>
-            `;
-          } else {
-            mediaSegment = `
-              <div class="mt-3 rounded-lg overflow-hidden border border-zinc-900 bg-black/50">
-                <video src="${asset.mediaUrl}" controls class="w-full h-48 object-contain" preload="metadata"></video>
-              </div>
-            `;
-          }
-        }
-
-        const deleteActionHtml = currentUserRole === 'admin' 
-          ? `<button onclick="purgeNode('${asset.id}')" class="text-zinc-600 hover:text-red-400 text-2xs transition-colors"><i class="far fa-trash-alt"></i> Delete</button>`
-          : ``;
-
-        const card = document.createElement('div');
-        card.className = "glass-panel rounded-xl p-5 flex flex-col justify-between border border-zinc-900/60";
-        card.innerHTML = `
-          <div>
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-3xs font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-500 border border-zinc-800">${asset.timestamp}</span>
-              <span class="text-2xs font-semibold text-amber-500/80 uppercase font-mono">${asset.mediaType} asset</span>
-            </div>
-            <p class="text-xs text-zinc-300 leading-relaxed whitespace-pre-line">${asset.text}</p>
-            ${mediaSegment}
-          </div>
-          <div class="mt-4 pt-3 border-t border-zinc-900/60 flex justify-between items-center">
-            <span class="text-3xs font-mono text-zinc-600">ID: ${asset.id}</span>
-            ${deleteActionHtml}
+      Object.keys(examDataStore).forEach(key => {
+        const item = examDataStore[key];
+        const btn = document.createElement('button');
+        btn.onclick = () => selectSubjectCluster(key);
+        btn.id = `btn-subj-${key}`;
+        btn.className = "w-full text-left p-3 rounded-xl bg-zinc-950 border border-zinc-900/60 hover:border-amber-500/50 transition-all block";
+        btn.innerHTML = `
+          <h4 class="text-xs font-bold text-white">${item.name}</h4>
+          <div class="flex justify-between items-center text-3xs text-zinc-500 mt-1">
+            <span>Items: ${item.questions.length}</span>
+            <span>Duration: ${item.duration}m</span>
           </div>
         `;
-        grid.appendChild(card);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectSubjectCluster(key) {
+      selectedSubjectKey = key;
+      const cluster = examDataStore[key];
+      
+      // Update highlights
+      Object.keys(examDataStore).forEach(k => {
+        const target = document.getElementById(`btn-subj-${k}`);
+        if(target) target.className = k === key 
+          ? "w-full text-left p-3 rounded-xl bg-amber-500/10 border border-amber-500 text-amber-500 transition-all block" 
+          : "w-full text-left p-3 rounded-xl bg-zinc-950 border border-zinc-900/60 hover:border-amber-500/50 transition-all block";
       });
 
-      updateCounters();
+      document.getElementById('readyCourseTitle').innerText = cluster.name;
+      document.getElementById('readyTime').innerText = cluster.duration;
+      document.getElementById('readyCount').innerText = cluster.questions.length;
+      document.getElementById('startTestBtn').removeAttribute('disabled');
+
+      returnToLobbyIdle();
     }
 
-    function updateCounters() {
-      document.getElementById('cnt-all').innerText = vaultAssets.length;
-      document.getElementById('cnt-vid').innerText = vaultAssets.filter(a => a.mediaType === 'video').length;
+    function startCbtSimulation() {
+      if(!selectedSubjectKey) return;
+      const cluster = examDataStore[selectedSubjectKey];
+      
+      activeExamQuestions = [...cluster.questions];
+      studentCandidateAnswers = {};
+      activeQuestionIndex = 0;
+      remainingSeconds = cluster.duration * 60;
+
+      // View adjustments
+      document.getElementById('pane-ready').classList.add('hidden');
+      document.getElementById('pane-results').classList.add('hidden');
+      document.getElementById('pane-testing').classList.remove('hidden');
+      document.getElementById('testingSubjectLabel').innerText = cluster.name;
+
+      renderActiveQuestionBlock();
+      
+      // Set count values
+      document.getElementById('totalQuestionsLabel').innerText = activeExamQuestions.length;
+
+      clearInterval(examCountdownTimerInterval);
+      examCountdownTimerInterval = setInterval(() => {
+        remainingSeconds--;
+        renderLiveTimerString();
+        if(remainingSeconds <= 0) {
+          clearInterval(examCountdownTimerInterval);
+          terminateAndEvaluateTest();
+        }
+      }, 1000);
+      renderLiveTimerString();
     }
 
-    function adjustMediaInputs() {
-      const type = document.getElementById('assetType').value;
-      const urlField = document.getElementById('assetUrlField');
-      if (type === 'none') {
-        urlField.classList.add('hidden');
-      } else {
-        urlField.classList.remove('hidden');
+    function renderLiveTimerString() {
+      const minutes = Math.floor(remainingSeconds / 60);
+      const seconds = remainingSeconds % 60;
+      document.getElementById('liveTimerBox').innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function renderActiveQuestionBlock() {
+      const qData = activeExamQuestions[activeQuestionIndex];
+      document.getElementById('activeQuestionIndexLabel').innerText = activeQuestionIndex + 1;
+      document.getElementById('liveQuestionText').innerText = qData.q;
+
+      const choicesGrid = document.getElementById('liveOptionsGrid');
+      choicesGrid.innerHTML = '';
+
+      Object.keys(qData.choices).forEach(choiceKey => {
+        const textValue = qData.choices[choiceKey];
+        const isSelected = studentCandidateAnswers[activeQuestionIndex] === choiceKey;
+
+        const container = document.createElement('div');
+        container.onclick = () => selectCandidateAnswerOption(choiceKey);
+        container.className = isSelected 
+          ? "p-3 rounded-xl bg-amber-500/10 border border-amber-500 text-amber-400 font-medium text-xs cursor-pointer flex items-center gap-3 transition-all"
+          : "p-3 rounded-xl bg-black/40 border border-zinc-900 text-gray-300 text-xs cursor-pointer hover:bg-zinc-900/40 flex items-center gap-3 transition-all";
+        
+        container.innerHTML = `
+          <span class="w-6 h-6 rounded-md flex items-center justify-center text-2xs font-bold ${isSelected ? 'bg-amber-500 text-black' : 'bg-zinc-900 text-zinc-500'}">${choiceKey}</span>
+          <span>${textValue}</span>
+        `;
+        choicesGrid.appendChild(container);
+      });
+    }
+
+    function selectCandidateAnswerOption(key) {
+      studentCandidateAnswers[activeQuestionIndex] = key;
+      renderActiveQuestionBlock();
+    }
+
+    function navigateTest(step) {
+      const target = activeQuestionIndex + step;
+      if (target >= 0 && target < activeExamQuestions.length) {
+        activeQuestionIndex = target;
+        renderActiveQuestionBlock();
       }
     }
 
-    // Process Admin Content Additions
-    function handleAssetPublish(e) {
+    function terminateAndEvaluateTest() {
+      clearInterval(examCountdownTimerInterval);
+      
+      let correctMatchesCount = 0;
+      const logList = document.getElementById('diagnosticLogList');
+      logList.innerHTML = '';
+
+      activeExamQuestions.forEach((q, idx) => {
+        const choicePicked = studentCandidateAnswers[idx] || "Unanswered";
+        const isCorrect = choicePicked === q.correct;
+        if(isCorrect) correctMatchesCount++;
+
+        const diagnosticRow = document.createElement('div');
+        diagnosticRow.className = `p-2.5 rounded border ${isCorrect ? 'bg-emerald-950/20 border-emerald-900/40 text-emerald-400' : 'bg-red-950/20 border-red-900/40 text-red-400'}`;
+        diagnosticRow.innerHTML = `
+          <p class="font-medium">Q${idx + 1}: ${q.q}</p>
+          <p class="text-3xs mt-1 text-zinc-400">Your Selection: <span class="font-bold">${choicePicked}</span> | Correct Key Target: <span class="font-bold text-emerald-400">${q.correct} (${q.choices[q.correct]})</span></p>
+        `;
+        logList.appendChild(diagnosticRow);
+      });
+
+      const parsedScorePercent = Math.round((correctMatchesCount / activeExamQuestions.length) * 100);
+      
+      document.getElementById('scorePercentLabel').innerText = `${parsedScorePercent}%`;
+      document.getElementById('scoreRawLabel').innerText = `${correctMatchesCount} / ${activeExamQuestions.length} Right`;
+      document.getElementById('resultSubjectLabel').innerText = examDataStore[selectedSubjectKey].name;
+
+      // Swap Workspace Panes
+      document.getElementById('pane-testing').classList.add('hidden');
+      document.getElementById('pane-results').classList.remove('hidden');
+    }
+
+    function returnToLobbyIdle() {
+      document.getElementById('pane-testing').classList.add('hidden');
+      document.getElementById('pane-results').classList.add('hidden');
+      document.getElementById('pane-ready').classList.remove('hidden');
+    }
+
+    // Admin Injector Controls
+    function populateAdminSubjectSelect() {
+      const select = document.getElementById('admSubject');
+      if(!select) return;
+      select.innerHTML = '';
+      Object.keys(examDataStore).forEach(k => {
+        const opt = document.createElement('option');
+        opt.value = k;
+        opt.innerText = examDataStore[k].name;
+        select.appendChild(opt);
+      });
+    }
+
+    function handleQuestionInjection(e) {
       e.preventDefault();
-      if (currentUserRole !== 'admin') return;
+      const subjectKey = document.getElementById('admSubject').value;
+      const questionText = document.getElementById('admQuestion').value.trim();
+      const optA = document.getElementById('admOptA').value.trim();
+      const optB = document.getElementById('admOptB').value.trim();
+      const optC = document.getElementById('admOptC').value.trim();
+      const optD = document.getElementById('admOptD').value.trim();
+      const correctOption = document.getElementById('admCorrect').value;
 
-      const text = document.getElementById('assetText').value.trim();
-      const type = document.getElementById('assetType').value;
-      const mediaUrl = document.getElementById('assetMediaUrl').value.trim();
-
-      if (type !== 'none' && !mediaUrl) {
-        alert("Please specify a functional Media Access Target URL string.");
-        return;
-      }
-
-      const newNode = {
-        id: "node-" + Date.now(),
-        text: text,
-        mediaType: type,
-        mediaUrl: mediaUrl,
-        timestamp: "Just now"
+      const packedQuestion = {
+        q: questionText,
+        choices: { A: optA, B: optB, C: optC, D: optD },
+        correct: correctOption
       };
 
-      vaultAssets.unshift(newNode);
-      localStorage.setItem('king_vault_assets', JSON.stringify(vaultAssets));
-      
-      // Clear Input Form fields
-      document.getElementById('assetText').value = '';
-      document.getElementById('assetMediaUrl').value = '';
-      
-      renderVaultData();
-      switchTab('feed');
+      examDataStore[subjectKey].questions.push(packedQuestion);
+      localStorage.setItem('king_exam_bank', JSON.stringify(examDataStore));
+
+      // Reset fields
+      document.getElementById('admQuestion').value = '';
+      document.getElementById('admOptA').value = '';
+      document.getElementById('admOptB').value = '';
+      document.getElementById('admOptC').value = '';
+      document.getElementById('admOptD').value = '';
+
+      alert("Question successfully committed into local syllabus array!");
+      populateSubjectPanels();
+      switchTab('lobby');
+      selectSubjectCluster(subjectKey);
     }
 
-    function purgeNode(id) {
-      if(confirm("Confirm asset node drop sequence from system records?")) {
-        vaultAssets = vaultAssets.filter(a => a.id !== id);
-        localStorage.setItem('king_vault_assets', JSON.stringify(vaultAssets));
-        renderVaultData();
-      }
-    }
-
-    function resetSystemData() {
-      if(confirm("Are you sure you want to completely purge local database asset history?")) {
-        localStorage.removeItem('king_vault_assets');
-        vaultAssets = [];
-        renderVaultData();
-      }
-    }
-
-    // Navigation View Engine Routing Tabs
-    function switchTab(targetTab) {
-      activeViewTab = targetTab;
-      ['feed', 'adminPanel', 'devDocs'].forEach(t => {
-        const view = document.getElementById(`view-${t}`);
-        const tabBtn = document.getElementById(`tab-${t}`);
-        if(t === targetTab) {
-          view.classList.remove('hidden');
-          tabBtn.className = "px-4 py-2 rounded-lg bg-amber-500 text-black font-bold transition-all flex items-center gap-1.5";
+    function switchTab(tab) {
+      ['lobby', 'admin'].forEach(t => {
+        const pane = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`tab-${t}`);
+        if(t === tab) {
+          pane.classList.remove('hidden');
+          if(btn) btn.className = "px-4 py-2 rounded-lg bg-amber-500 text-black font-bold transition-all";
         } else {
-          view.classList.add('hidden');
-          tabBtn.className = "px-4 py-2 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5";
+          pane.classList.add('hidden');
+          if(btn) btn.className = "px-4 py-2 rounded-lg text-zinc-400 hover:text-white transition-all";
         }
       });
     }
 
-    function openPublishDrawer() {
-      switchTab('adminPanel');
-      document.getElementById('assetText').focus();
-    }
-
-    // Floating Social CTAs Hub Controller Toggle
     function toggleSocialSuiteMenu() {
       const menu = document.getElementById('socialSuiteSubMenu');
       const icon = document.getElementById('centralHubIcon');
       if (menu.classList.contains('scale-0')) {
         menu.classList.remove('scale-0', 'translate-y-10', 'opacity-0', 'pointer-events-none');
-        icon.className = "fas fa-times transition-transform duration-300";
+        icon.className = "fas fa-times";
       } else {
         menu.classList.add('scale-0', 'translate-y-10', 'opacity-0', 'pointer-events-none');
-        icon.className = "fas fa-crown transition-transform duration-300";
+        icon.className = "fas fa-crown";
       }
-    }
-
-    function getYoutubeEmbedHash(url) {
-      let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      let match = url.match(regExp);
-      return (match && match[2].length === 11) ? "https://www.youtube.com/embed/" + match[2] : url;
     }
   </script>
 </body>
